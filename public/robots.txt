@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Disallow:
+
+# Host
+Host: https://monmarchegn.com
+
+# Sitemaps
+Sitemap: https://monmarchegn.com/sitemap.xml
