@@ -27,8 +27,8 @@ export default function HomePage() {
           Vos courses livrées à domicile
         </motion.h1>
         <p className="mt-4 text-base sm:text-lg md:text-xl max-w-xl">
-          Produits frais, livraison rapide et paiement sécurisé. Partout à
-          Conakry et bientôt en Guinée entière.
+          Produits de qualité, livraison rapide et paiement sécurisé. Partout à
+          Conakry et bientôt dans toute la Guinée. Monmarche vous propose un service clientèle professionnel.
         </p>
         <div className="mt-6 flex flex-col sm:flex-row gap-4">
           <a
