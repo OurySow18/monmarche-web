@@ -1,4 +1,4 @@
-exports.id=359,exports.ids=[359],exports.modules={2002:e=>{e.exports={style:{fontFamily:"'__Inter_aaf875', '__Inter_Fallback_aaf875'",fontStyle:"normal"},className:"__className_aaf875"}},2881:(e,t,r)=>{"use strict";r.d(t,{Z:()=>i});var n=r(7577);/**
+exports.id=359,exports.ids=[359],exports.modules={2002:e=>{e.exports={style:{fontFamily:"'__Inter_d65c78', '__Inter_Fallback_d65c78'",fontStyle:"normal"},className:"__className_d65c78"}},2881:(e,t,r)=>{"use strict";r.d(t,{Z:()=>i});var n=r(7577);/**
  * @license lucide-react v0.414.0 - ISC
  *
  * This source code is licensed under the ISC license.
