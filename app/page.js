@@ -12,6 +12,8 @@ import {
   PhoneCall,
 } from "lucide-react";
 import Link from "next/link";
+import ShortsGallery from "../components/ui/ShortsGallery";
+import VideoPresentation from "@/components/ui/VideoPresentation";
 
 export default function HomePage() {
   return (
@@ -95,22 +97,8 @@ export default function HomePage() {
       </section>
 
       {/* Vidéo Section */}
-      <section className="py-16 px-4 md:px-6 bg-white text-center">
-        <h2 className="text-2xl sm:text-3xl font-semibold mb-6">
-          Découvrez Monmarché en vidéo
-        </h2>
-        <div className="max-w-4xl mx-auto aspect-video">
-          <iframe
-            className="w-full h-full rounded-xl shadow-md"
-            src="https://www.youtube.com/embed/LZftTkQo4RY"
-            title="Présentation Monmarché"
-            frameBorder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowFullScreen
-          ></iframe>
-        </div>
-      </section>
-
+      <VideoPresentation />
+      <ShortsGallery />
       {/* Blog Teaser Section */}
       <section className="py-16 px-4 md:px-6 bg-orange-50 text-center">
         <h2 className="text-2xl sm:text-3xl font-bold text-[#ff6f00] mb-8">
