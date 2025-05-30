@@ -1,5 +1,8 @@
 {
   "projects": {
-    "default": "monmarhe"
-  }
+    "default": "monmarhe",
+    "monmarche": "monmarhe"
+  },
+  "targets": {},
+  "etags": {}
 }
