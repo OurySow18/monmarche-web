@@ -1,6 +1,5 @@
 import fs from 'fs';
 import path from 'path';
-import matter from 'gray-matter';
 import Link from 'next/link';
 
 const BLOG_DIR = path.join(process.cwd(), 'content', 'blog');
@@ -70,12 +69,46 @@ function getAllPosts() {
     .map((filename) => {
       const filePath = path.join(BLOG_DIR, filename);
       const fileContent = fs.readFileSync(filePath, 'utf-8');
-      const { data } = matter(fileContent);
+      const meta = extractMetadata(fileContent);
       return {
-        slug: filename.replace(/\.mdx?$/, ''),
-        ...data,
+        slug: meta.slug || filename.replace(/\.mdx?$/, ''),
+        title: meta.title || extractFirstHeading(fileContent) || 'Article',
+        excerpt: meta.excerpt || extractFirstParagraph(fileContent),
+        date: meta.date,
       };
     })
     .filter((post) => post.slug)
     .sort((a, b) => new Date(b.date) - new Date(a.date));
+}
+
+function extractMetadata(content) {
+  const match = content.match(/export const metadata\s*=\s*({[\s\S]*?});/);
+  if (!match) return {};
+  try {
+    // eslint-disable-next-line no-new-func
+    return Function(`"use strict"; return (${match[1]});`)();
+  } catch {
+    return {};
+  }
+}
+
+function extractFirstHeading(content) {
+  const lines = content.split('\n');
+  const headingLine = lines.find((line) => line.trim().startsWith('# '));
+  return headingLine ? headingLine.replace(/^#\s+/, '').trim() : '';
+}
+
+function extractFirstParagraph(content) {
+  const lines = content.split('\n');
+  let inBody = false;
+  for (const line of lines) {
+    if (line.trim().startsWith('#')) {
+      inBody = true;
+      continue;
+    }
+    if (inBody && line.trim()) {
+      return line.trim();
+    }
+  }
+  return '';
 }

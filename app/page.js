@@ -1,4 +1,6 @@
 import dynamic from "next/dynamic";
+import fs from "fs";
+import path from "path";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import {
@@ -17,6 +19,8 @@ const HeroSection = dynamic(() => import("./_components/Hero"), {
 });
 
 export default function HomePage() {
+  const recentPosts = getRecentPosts(3);
+
   return (
     <div className="bg-white text-gray-800">
       {/* Hero Section */}
@@ -32,31 +36,37 @@ export default function HomePage() {
             icon={<ShoppingCart />}
             title="Large sélection de produits"
             description="Riz, jus, produits laitiers, pour enfants et plus encore."
+            slug="large-selection-produits"
           />
           <Feature
             icon={<Truck />}
             title="Livraison rapide"
             description="Service fiable à Conakry, bientôt dans toute la Guinée."
+            slug="livraison-rapide"
           />
           <Feature
             icon={<ShieldCheck />}
             title="Paiement sécurisé"
             description="Commandez et payez en toute sécurité en ligne ou à la livraison."
+            slug="paiement-securise"
           />
           <Feature
             icon={<ShoppingCart />}
             title="Commandes personnalisées"
             description="Créez vos paniers selon vos préférences alimentaires."
+            slug="commandes-personnalisees"
           />
           <Feature
             icon={<ShieldCheck />}
             title="Sécurité alimentaire"
             description="Produits frais et respect des normes d'hygiène."
+            slug="securite-alimentaire"
           />
           <Feature
             icon={<PhoneCall />}
             title="Support dédié"
             description="Notre équipe répond à vos questions à tout moment."
+            slug="support-dedie"
           />
         </div>
       </section>
@@ -70,11 +80,19 @@ export default function HomePage() {
           Nos derniers articles
         </h2>
         <div className="max-w-5xl mx-auto grid gap-8 sm:grid-cols-2 lg:grid-cols-3 text-left">
-          <BlogCard
-            title="5 astuces pour faire vos courses plus rapidement"
-            excerpt="Découvrez comment optimiser vos achats grâce à nos paniers personnalisés et commandes rapides."
-            slug="astuces-courses"
-          />
+          {recentPosts.length === 0 && (
+            <p className="text-gray-700 col-span-full">
+              Aucun article disponible pour le moment. Revenez bientôt !
+            </p>
+          )}
+          {recentPosts.map((post) => (
+            <BlogCard
+              key={post.slug}
+              title={post.title}
+              excerpt={post.excerpt}
+              slug={post.slug}
+            />
+          ))}
         </div>
         <div className="mt-8">
           <Link href="/blog">
@@ -122,8 +140,8 @@ export default function HomePage() {
   );
 }
 
-function Feature({ icon, title, description }) {
-  return (
+function Feature({ icon, title, description, slug }) {
+  const content = (
     <Card className="rounded-2xl shadow-md hover:shadow-lg transition-all h-full">
       <CardContent className="p-6 flex flex-col items-center text-center h-full">
         <div className="text-[#ff6f00] mb-4">{icon}</div>
@@ -131,6 +149,14 @@ function Feature({ icon, title, description }) {
         <p className="text-gray-600 text-sm sm:text-base">{description}</p>
       </CardContent>
     </Card>
+  );
+
+  return slug ? (
+    <Link href={`/blog/${slug}`} className="block h-full">
+      {content}
+    </Link>
+  ) : (
+    content
   );
 }
 
@@ -149,6 +175,62 @@ function BlogCard({ title, excerpt, slug }) {
       </CardContent>
     </Card>
   );
+}
+
+function getRecentPosts(limit = 3) {
+  const dir = path.join(process.cwd(), "content", "blog");
+  if (!fs.existsSync(dir)) return [];
+  const files = fs.readdirSync(dir).filter((filename) => filename.endsWith(".mdx"));
+  const posts = files
+    .map((filename) => {
+      const filePath = path.join(dir, filename);
+      const fileContent = fs.readFileSync(filePath, "utf-8");
+      const meta = extractMetadata(fileContent);
+      const firstHeading = extractFirstHeading(fileContent);
+      const firstParagraph = extractFirstParagraph(fileContent);
+      return {
+        slug: meta.slug || filename.replace(/\.mdx?$/, ""),
+        title: meta.title || firstHeading || "Article",
+        excerpt: meta.excerpt || firstParagraph || "",
+        date: meta.date ? new Date(meta.date) : new Date(0),
+      };
+    })
+    .sort((a, b) => b.date - a.date);
+
+  return posts.slice(0, limit);
+}
+
+function extractMetadata(content) {
+  const match = content.match(/export const metadata\s*=\s*({[\s\S]*?});/);
+  if (!match) return {};
+  try {
+    // Unsafe eval avoided by using Function on local files only
+    // eslint-disable-next-line no-new-func
+    return Function(`"use strict"; return (${match[1]});`)();
+  } catch (e) {
+    return {};
+  }
+}
+
+function extractFirstHeading(content) {
+  const lines = content.split("\n");
+  const headingLine = lines.find((line) => line.trim().startsWith("# "));
+  return headingLine ? headingLine.replace(/^#\s+/, "").trim() : "";
+}
+
+function extractFirstParagraph(content) {
+  const lines = content.split("\n");
+  let inBody = false;
+  for (const line of lines) {
+    if (line.trim().startsWith("#")) {
+      inBody = true;
+      continue;
+    }
+    if (inBody && line.trim()) {
+      return line.trim();
+    }
+  }
+  return "";
 }
 
 function HeroFallback() {
