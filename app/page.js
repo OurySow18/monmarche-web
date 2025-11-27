@@ -1,11 +1,7 @@
-"use client";
-
-import React from "react";
+import dynamic from "next/dynamic";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { motion } from "framer-motion";
 import {
-  Download,
   ShoppingCart,
   Truck,
   ShieldCheck,
@@ -15,47 +11,16 @@ import Link from "next/link";
 import ShortsGallery from "../components/ui/ShortsGallery";
 import VideoPresentation from "@/components/ui/VideoPresentation";
 
+const HeroSection = dynamic(() => import("./_components/Hero"), {
+  ssr: false,
+  loading: () => <HeroFallback />,
+});
+
 export default function HomePage() {
   return (
     <div className="bg-white text-gray-800">
       {/* Hero Section */}
-      <section className="min-h-screen bg-gradient-to-br from-orange-50 to-white flex flex-col items-center justify-center text-center px-4 md:px-6 py-12">
-        <motion.h1
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="text-3xl sm:text-4xl md:text-6xl font-bold text-[#ff6f00]"
-        >
-          Vos courses livrées à domicile
-        </motion.h1>
-        <p className="mt-4 text-base sm:text-lg md:text-xl max-w-xl">
-          Produits de qualité, livraison rapide et paiement sécurisé. Partout à
-          Conakry et bientôt dans toute la Guinée. Monmarche vous propose un service clientèle professionnel.
-        </p>
-        <div className="mt-6 flex flex-col sm:flex-row gap-4">
-          <a
-            href="https://play.google.com/store/apps/details?id=com.amasow.Monmarche&pcampaignid=web_share"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Button className="text-lg px-6 py-3 w-full sm:w-auto">
-              Télécharger sur Android
-            </Button>
-          </a>
-          <a
-            href="https://apps.apple.com/de/app/monmarche/id6479302215"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Button
-              variant="outline"
-              className="text-lg px-6 py-3 w-full sm:w-auto"
-            >
-              Télécharger sur iPhone
-            </Button>
-          </a>
-        </div>
-      </section>
+      <HeroSection />
 
       {/* Features Section */}
       <section className="py-16 bg-gray-50 px-4 md:px-6">
@@ -183,5 +148,42 @@ function BlogCard({ title, excerpt, slug }) {
         </Link>
       </CardContent>
     </Card>
+  );
+}
+
+function HeroFallback() {
+  return (
+    <section className="min-h-screen bg-gradient-to-br from-orange-50 to-white flex flex-col items-center justify-center text-center px-4 md:px-6 py-12">
+      <h1 className="text-3xl sm:text-4xl md:text-6xl font-bold text-[#ff6f00]">
+        Vos courses livrées à domicile
+      </h1>
+      <p className="mt-4 text-base sm:text-lg md:text-xl max-w-xl">
+        Produits de qualité, livraison rapide et paiement sécurisé. Partout à
+        Conakry et bientôt dans toute la Guinée. Monmarche vous propose un service clientèle professionnel.
+      </p>
+      <div className="mt-6 flex flex-col sm:flex-row gap-4">
+        <a
+          href="https://play.google.com/store/apps/details?id=com.amasow.Monmarche&pcampaignid=web_share"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <Button className="text-lg px-6 py-3 w-full sm:w-auto">
+            Télécharger sur Android
+          </Button>
+        </a>
+        <a
+          href="https://apps.apple.com/de/app/monmarche/id6479302215"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <Button
+            variant="outline"
+            className="text-lg px-6 py-3 w-full sm:w-auto"
+          >
+            Télécharger sur iPhone
+          </Button>
+        </a>
+      </div>
+    </section>
   );
 }

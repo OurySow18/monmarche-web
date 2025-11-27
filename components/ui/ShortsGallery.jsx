@@ -1,5 +1,3 @@
-"use client";
-
 import React from "react";
 
 const shorts = [
@@ -17,13 +15,14 @@ export default function ShortsGallery() {
       </h2>
 
       <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3 max-w-6xl mx-auto">
-        {shorts.map((id) => (
+        {shorts.map((id, index) => (
           <div key={id} className="aspect-video rounded-xl overflow-hidden shadow-md">
             <iframe
               className="w-full h-full"
               src={`https://www.youtube.com/embed/${id}`}
-              title="YouTube Short"
+              title={`YouTube Short Monmarché ${index + 1}`}
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              loading="lazy"
               allowFullScreen
             ></iframe>
           </div>

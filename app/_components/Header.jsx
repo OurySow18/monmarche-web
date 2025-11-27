@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { Menu, X } from "lucide-react";
@@ -8,6 +8,19 @@ import logo from '../../public/logo.png'
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
+
+  useEffect(() => {
+    if (!isOpen) return;
+    const onKeyDown = (event) => {
+      if (event.key === "Escape") {
+        setIsOpen(false);
+      }
+    };
+    document.addEventListener("keydown", onKeyDown);
+    return () => document.removeEventListener("keydown", onKeyDown);
+  }, [isOpen]);
+
+  const handleLinkClick = () => setIsOpen(false);
 
   return (
     <header className="bg-white shadow-md sticky top-0 z-50">
@@ -39,10 +52,10 @@ export default function Header() {
       {/* Mobile Nav Panel */}
       {isOpen && (
         <nav className="md:hidden bg-white border-t px-4 py-4 space-y-3 text-sm">
-          <Link href="/a-propos" className="block hover:text-[#ff6f00]">À propos</Link>
-          <Link href="/blog" className="block hover:text-[#ff6f00]">Blog</Link>
-          <Link href="/conditions" className="block hover:text-[#ff6f00]">Conditions</Link>
-          <Link href="/confidentialite" className="block hover:text-[#ff6f00]">Confidentialité</Link>
+          <Link href="/a-propos" onClick={handleLinkClick} className="block hover:text-[#ff6f00]">À propos</Link>
+          <Link href="/blog" onClick={handleLinkClick} className="block hover:text-[#ff6f00]">Blog</Link>
+          <Link href="/conditions" onClick={handleLinkClick} className="block hover:text-[#ff6f00]">Conditions</Link>
+          <Link href="/confidentialite" onClick={handleLinkClick} className="block hover:text-[#ff6f00]">Confidentialité</Link>
         </nav>
       )}
     </header>

@@ -1,5 +1,3 @@
-"use client";
-
 import React from "react";
 
 export default function VideoPresentation() {
@@ -12,8 +10,9 @@ export default function VideoPresentation() {
         <iframe
           className="w-full h-full rounded-xl shadow-md"
           src="https://www.youtube.com/embed/GtOa9sVWL0o"
-          title="Présentation Monmarché"
+          title="Présentation vidéo de Monmarché"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          loading="lazy"
           allowFullScreen
         ></iframe>
       </div>
