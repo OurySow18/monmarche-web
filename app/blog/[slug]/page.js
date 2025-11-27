@@ -108,8 +108,9 @@ export default async function BlogArticlePage({ params }) {
             <iframe
               className="absolute top-0 left-0 w-full h-full"
               src={data.video}
-              title="Vidéo Monmarché"
+              title={data.title ? `Vidéo : ${data.title}` : "Vidéo Monmarché"}
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              loading="lazy"
               allowFullScreen
             ></iframe>
           </div>
