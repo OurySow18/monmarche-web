@@ -1,0 +1,10 @@
+{
+  "applinks": {
+    "details": [
+      {
+        "appID": "Q969DHL7LZ.com.amasow.Monmarche",
+        "paths": ["/p/*", "/*"]
+      }
+    ]
+  }
+}

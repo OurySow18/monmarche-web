@@ -1,0 +1,12 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.amasow.Monmarche",
+      "sha256_cert_fingerprints": [
+        "64:82:86:55:41:31:A5:DC:1B:DC:8E:7A:D8:C7:CE:FB:BF:FD:BA:4A:04:B6:6C:49:80:70:86:7D:1E:8D:1D:D0"
+      ]
+    }
+  }
+]
