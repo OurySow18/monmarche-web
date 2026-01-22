@@ -1,11 +1,21 @@
-import DeepLinkFallback, { buildMetadata } from "../fallback-content";
+import { notFound } from "next/navigation";
+import DeepLinkFallback from "../fallback-content";
+import { getProduct, buildProductMetadata } from "../product-service";
 
-export function generateMetadata({ params }) {
+export async function generateMetadata({ params }) {
   const { id } = params || {};
-  return buildMetadata(id);
+  const product = await getProduct(id);
+  if (!product) {
+    return buildProductMetadata(null, id, { notFound: true });
+  }
+  return buildProductMetadata(product, id);
 }
 
-export default function ProductDeepLinkPage({ params }) {
+export default async function ProductDeepLinkPage({ params }) {
   const { id } = params || {};
-  return <DeepLinkFallback id={id} />;
+  const product = await getProduct(id);
+  if (!product) {
+    notFound();
+  }
+  return <DeepLinkFallback id={id} product={product} />;
 }

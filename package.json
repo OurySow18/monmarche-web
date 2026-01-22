@@ -15,6 +15,7 @@
     "@radix-ui/react-slot": "^1.1.2",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
+    "firebase": "^12.8.0",
     "firebase-admin": "^13.2.0",
     "firebase-functions": "^6.3.2",
     "framer-motion": "^12.6.2",
@@ -38,6 +39,6 @@
     "typescript": "^5.9.3"
   },
   "overrides": {
-  "picomatch": "^4.0.3"
+    "picomatch": "^4.0.3"
   }
 }

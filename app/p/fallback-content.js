@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import { FALLBACK_IMAGE } from "./product-service";
 
 const APP_STORE_URL = "https://apps.apple.com/de/app/monmarche/id6479302215";
 const PLAY_STORE_URL =
@@ -38,9 +39,14 @@ export function buildMetadata(productId) {
   };
 }
 
-export default function DeepLinkFallback({ id }) {
-  const deepLink = id ? `monmarche://p/${id}` : "monmarche://";
-  const hasProduct = Boolean(id);
+export default function DeepLinkFallback({ id, product }) {
+  const deepLinkTarget = product?.id || id;
+  const deepLink = deepLinkTarget ? `monmarche://p/${deepLinkTarget}` : "monmarche://";
+  const hasProduct = Boolean(deepLinkTarget);
+  const productTitle =
+    product?.title ||
+    (hasProduct ? `Produit ${deepLinkTarget}` : "Monmarché — produits frais livrés");
+  const productImage = product?.image || FALLBACK_IMAGE;
 
   return (
     <section className="mx-auto max-w-3xl px-4 py-16">
@@ -64,10 +70,27 @@ export default function DeepLinkFallback({ id }) {
           <div className="grid gap-6 lg:grid-cols-[1.1fr_0.9fr] items-center">
             <div className="bg-white/70 border border-orange-100 rounded-2xl p-6 shadow-sm">
               {hasProduct ? (
-                <div className="space-y-2">
-                  <p className="text-sm uppercase tracking-wide text-orange-600 font-semibold">
-                    Produit #{id}
-                  </p>
+                <div className="space-y-3">
+                  <div className="flex items-center gap-4">
+                    <div className="relative h-20 w-20 shrink-0 overflow-hidden rounded-xl border border-orange-100 bg-white">
+                      <Image
+                        src={productImage}
+                        alt={productTitle}
+                        fill
+                        sizes="80px"
+                        className="object-cover"
+                        priority
+                      />
+                    </div>
+                    <div>
+                      <p className="text-xs uppercase tracking-wide text-orange-600 font-semibold">
+                        Produit — {productTitle}
+                      </p>
+                      <p className="text-gray-800 font-semibold">
+                        {productTitle}
+                      </p>
+                    </div>
+                  </div>
                   <p className="text-gray-800 font-semibold text-lg">
                     Ouvrez ce produit dans Monmarché pour voir les détails, la disponibilité et la livraison.
                   </p>
