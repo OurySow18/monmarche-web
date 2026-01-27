@@ -133,6 +133,11 @@ async function getProductFromFirestoreRestBySlug(slug) {
   if (!projectId || !apiKey) return null;
 
   const url = `https://firestore.googleapis.com/v1/projects/${projectId}/databases/(default)/documents:runQuery?key=${apiKey}`;
+  console.log("[product] REST slug lookup", {
+    slug,
+    projectId,
+    hasApiKey: Boolean(apiKey),
+  });
   const body = {
     structuredQuery: {
       from: [{ collectionId: FIRESTORE_COLLECTION }],
@@ -154,13 +159,23 @@ async function getProductFromFirestoreRestBySlug(slug) {
       body: JSON.stringify(body),
       cache: "no-store",
     });
+    console.log("[product] REST slug response", {
+      slug,
+      status: res.status,
+      ok: res.ok,
+    });
     if (!res.ok) return null;
     const data = await res.json();
     const doc = data?.[0]?.document;
+    console.log("[product] REST slug doc", {
+      slug,
+      hasDocument: Boolean(doc),
+    });
     if (!doc?.fields) return null;
     const parsed = firestoreDocToPlain(doc);
     return normalizeProduct({ id: doc.name?.split("/").pop(), ...parsed });
   } catch (err) {
+    console.log("[product] REST slug error", { slug, error: err?.message });
     return null;
   }
 }
