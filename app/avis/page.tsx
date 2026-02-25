@@ -142,7 +142,7 @@ export default function AvisPage() {
               href="/"
               className="mt-6 inline-flex rounded-full bg-[#ff6f00] px-5 py-3 text-sm font-semibold text-white hover:bg-orange-600"
             >
-              Retour à l'accueil
+              Retour à l&apos;accueil
             </Link>
           </div>
         )}
@@ -255,7 +255,7 @@ export default function AvisPage() {
               href="/"
               className="mt-6 inline-flex rounded-full bg-[#ff6f00] px-5 py-3 text-sm font-semibold text-white hover:bg-orange-600"
             >
-              Retour à l'accueil
+              Retour à l&apos;accueil
             </Link>
           </div>
         )}

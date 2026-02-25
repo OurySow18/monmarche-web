@@ -1,7 +1,8 @@
 import { getApps, initializeApp, cert } from "firebase-admin/app";
 import { getFirestore } from "firebase-admin/firestore";
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://monmarchegn.com";
+export const SITE_URL =
+  process.env.NEXT_PUBLIC_SITE_URL || "https://monmarchegn.com";
 export const FALLBACK_IMAGE =
   process.env.NEXT_PUBLIC_OG_FALLBACK_IMAGE ||
   `${SITE_URL}/images/og-monmarche.png`;
@@ -197,7 +198,7 @@ async function getProductFromApi(productId) {
   return null;
 }
 
-async function getDb() {
+export async function getDb() {
   const privateKey = process.env.FIREBASE_PRIVATE_KEY;
   const projectId = process.env.FIREBASE_PROJECT_ID;
   const clientEmail = process.env.FIREBASE_CLIENT_EMAIL;
@@ -219,7 +220,7 @@ async function getDb() {
   return getFirestore();
 }
 
-function firestoreDocToPlain(doc) {
+export function firestoreDocToPlain(doc) {
   const fields = doc.fields || {};
   const plain = {};
   for (const key of Object.keys(fields)) {
@@ -301,10 +302,10 @@ export function buildProductMetadata(product, identifier, options = {}) {
         ? `Produit ${identifier}`
         : "Monmarché — Découvrez nos produits frais livrés");
   const description = (product?.description || "").trim();
-  const safeDescription =
-    description.length > 0
-      ? description.slice(0, 160)
-      : "Produits frais livrés rapidement avec Monmarché. Commandez en ligne en quelques minutes.";
+  const safeDescription = truncateMetaDescription(
+    description,
+    "Produits frais livrés rapidement avec Monmarché. Commandez en ligne en quelques minutes."
+  );
   const image = product?.image || FALLBACK_IMAGE;
   const other = {
     "og:type": "product",
@@ -315,33 +316,79 @@ export function buildProductMetadata(product, identifier, options = {}) {
     other["og:price:currency"] = String(product.currency);
   }
 
-  return {
+  return buildSocialMetadata({
     title,
     description: safeDescription,
+    url,
+    image,
+    ogType: "product",
+    other,
+  });
+}
+
+export function truncateMetaDescription(description, fallback, max = 160) {
+  const text = (description || "").trim();
+  if (!text) return fallback;
+  return text.slice(0, max);
+}
+
+export function buildSocialMetadata({
+  title,
+  description,
+  url,
+  image,
+  ogType = "website",
+  other = {},
+}) {
+  const openGraph =
+    ogType === "website"
+      ? {
+          siteName: "Monmarché",
+          type: "website",
+          title,
+          description,
+          url,
+          images: [
+            {
+              url: image,
+              width: 1200,
+              height: 630,
+              alt: title,
+            },
+          ],
+        }
+      : {
+          siteName: "Monmarché",
+          title,
+          description,
+          url,
+          images: [
+            {
+              url: image,
+              width: 1200,
+              height: 630,
+              alt: title,
+            },
+          ],
+        };
+
+  return {
+    title,
+    description,
     alternates: {
       canonical: url,
     },
-    openGraph: {
-      siteName: "Monmarché",
-      title,
-      description: safeDescription,
-      url,
-      images: [
-        {
-          url: image,
-          width: 1200,
-          height: 630,
-          alt: title,
-        },
-      ],
-    },
+    openGraph,
     twitter: {
       card: "summary_large_image",
       title,
-      description: safeDescription,
+      description,
       images: [image],
     },
-    other,
+    other: {
+      "og:type": ogType,
+      ...other,
+    },
   };
 }
 
@@ -355,7 +402,7 @@ function normalizePriceValue(value) {
   return null;
 }
 
-function toAbsoluteUrl(url) {
+export function toAbsoluteUrl(url) {
   if (!url) return "";
   if (url.startsWith("http://") || url.startsWith("https://")) return url;
   const trimmed = url.startsWith("/") ? url : `/${url}`;
