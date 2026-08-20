@@ -32,14 +32,7 @@ export async function getProduct(identifier) {
   const fromApi = await getProductFromApi(identifier);
   if (fromApi) return fromApi;
 
-  // 5) Mock pour démo/test local
-  return normalizeProduct({
-    productId: identifier,
-    tags: { title: `Produit ${identifier}` },
-    description:
-      "Description courte du produit Monmarché. Remplacez par votre champ description courte.",
-    image: `${SITE_URL}/images/og-monmarche.png`,
-  });
+  return null;
 }
 
 async function getProductBySlug(slug) {

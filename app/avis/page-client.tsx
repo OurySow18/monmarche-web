@@ -12,7 +12,7 @@ import {
   validateReviewLink,
 } from "../../lib/reviewApi";
 
-const COMMENT_MAX = 500;
+const COMMENT_MAX = 2000;
 
 type ViewState = "loading" | "invalid" | "ready" | "success";
 
@@ -247,7 +247,7 @@ export default function AvisPageClient({
         {viewState === "success" && (
           <div className="rounded-3xl border border-green-100 bg-white p-6 shadow-sm">
             <h1 className="text-2xl font-semibold text-gray-900">
-              Merci, votre avis a été envoyé
+              Merci pour votre avis !
             </h1>
             <p className="mt-3 text-gray-600">
               Votre retour nous aide à améliorer la qualité de service Monmarché.

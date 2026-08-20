@@ -1,5 +1,6 @@
 export const FUNCTION_BASE_URL = (
-  process.env.NEXT_PUBLIC_FUNCTION_BASE_URL || ""
+  process.env.NEXT_PUBLIC_FUNCTION_BASE_URL ||
+  "https://europe-west1-monmarhe.cloudfunctions.net"
 ).replace(/\/+$/, "");
 
 export function hasReviewApiBaseUrl() {
@@ -59,12 +60,34 @@ function buildUrl(path: string) {
   return `${FUNCTION_BASE_URL}${path}`;
 }
 
+const VALIDATE_ERROR_MESSAGES: Record<string, string> = {
+  missing_token_or_sig: "Lien incomplet. Vérifiez le message reçu.",
+  invalid_token: "Ce lien est invalide.",
+  invalid_expiry: "Ce lien est invalide.",
+  bad_signature: "Ce lien est invalide.",
+  expired: "Ce lien a expiré.",
+  not_allowed:
+    "Un avis a déjà été envoyé pour cette commande, ou ce lien n'est plus utilisable.",
+  archived_order_not_found: "Impossible de retrouver cette commande.",
+};
+
+const SUBMIT_ERROR_MESSAGES: Record<string, string> = {
+  ...VALIDATE_ERROR_MESSAGES,
+  invalid_rating: "Veuillez sélectionner une note entre 1 et 5.",
+};
+
 function formatApiError(error?: string) {
-  const raw = (error || "").toLowerCase();
-  if (raw.includes("expired")) return "Ce lien a expiré.";
-  if (raw.includes("already")) return "Ce lien a déjà été utilisé.";
-  if (raw.includes("invalid")) return "Ce lien est invalide.";
-  return "Le lien d'avis est invalide ou indisponible.";
+  return (
+    (error && VALIDATE_ERROR_MESSAGES[error]) ||
+    "Le lien d'avis est invalide ou indisponible."
+  );
+}
+
+function formatSubmitError(error?: string) {
+  return (
+    (error && SUBMIT_ERROR_MESSAGES[error]) ||
+    "Envoi impossible. Veuillez réessayer."
+  );
 }
 
 export async function validateReviewLink(
@@ -162,7 +185,7 @@ export async function submitReview(params: {
 
   if (!data.ok) {
     throw new ReviewApiError(
-      "Envoi impossible. Veuillez réessayer.",
+      formatSubmitError(data.error),
       data.error || "submit_failed"
     );
   }

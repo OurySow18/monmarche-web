@@ -1,13 +1,17 @@
 {
-    "name": "functions",
-    "main": "index.js",
-    "engines": {
-      "node": "20"
-    },
-    "dependencies": {
-      "firebase-functions": "^4.4.1",
-      "firebase-admin": "^11.10.1",
-      "next": "^14.2.5"
-    }
+  "name": "functions",
+  "main": "index.js",
+  "engines": {
+    "node": "20"
+  },
+  "dependencies": {
+    "firebase-functions": "^6.3.2",
+    "firebase-admin": "^13.2.0",
+    "next": "14.2.5",
+    "react": "^18",
+    "react-dom": "^18",
+    "next-mdx-remote": "^5.0.0",
+    "gray-matter": "^4.0.3",
+    "sharp": "^0.33.5"
   }
-  
+}
