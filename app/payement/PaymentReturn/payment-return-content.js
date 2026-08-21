@@ -26,6 +26,7 @@ export function buildOrangeMoneyReturnMetadata(status) {
   return {
     title,
     description,
+    robots: { index: false, follow: false },
     alternates: {
       canonical: `${SITE_URL}/payement/PaymentReturn?status=${status}`,
     },

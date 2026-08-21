@@ -1,6 +1,14 @@
-"use client";
-
 import React from 'react';
+
+const SITE_URL = 'https://monmarchegn.com';
+
+export const metadata = {
+  title: "Conditions Générales de Vente — Monmarché",
+  description: "Conditions générales de vente et de livraison de l'application Monmarché à Conakry, Guinée.",
+  alternates: {
+    canonical: `${SITE_URL}/conditions`,
+  },
+};
 
 export default function ConditionsPage() {
   return (

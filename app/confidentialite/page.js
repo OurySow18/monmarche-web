@@ -1,6 +1,14 @@
-"use client";
-
 import React from 'react';
+
+const SITE_URL = 'https://monmarchegn.com';
+
+export const metadata = {
+  title: "Politique de Confidentialité — Monmarché",
+  description: "Comment Monmarché collecte, utilise et protège vos données personnelles.",
+  alternates: {
+    canonical: `${SITE_URL}/confidentialite`,
+  },
+};
 
 export default function ConfidentialitePage() {
   return (

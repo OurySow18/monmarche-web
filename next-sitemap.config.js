@@ -5,5 +5,13 @@ module.exports = {
     sitemapSize: 7000,
     changefreq: 'weekly',
     priority: 0.7,
+    exclude: [
+      '/Checkout_Paypal',
+      '/Check_payment',
+      '/cancel',
+      '/return',
+      '/payement/*',
+      '/avis',
+    ],
   };
   

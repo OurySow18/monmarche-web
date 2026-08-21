@@ -1,5 +1,10 @@
 import Link from "next/link";
 
+export const metadata = {
+  title: "Retour PayPal — Monmarché",
+  robots: { index: false, follow: false },
+};
+
 export default function PayPalReturnPage({ searchParams }) {
   const status = searchParams?.status || searchParams?.payment_status;
   const txn = searchParams?.txn_id || searchParams?.transaction_id;

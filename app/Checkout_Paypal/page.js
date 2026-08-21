@@ -3,6 +3,7 @@ import Link from "next/link";
 export const metadata = {
   title: "Checkout PayPal — Monmarché",
   description: "Finalisez votre paiement PayPal.",
+  robots: { index: false, follow: false },
 };
 
 export default function CheckoutPaypalPage() {

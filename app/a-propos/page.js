@@ -1,6 +1,14 @@
-"use client";
-
 import React from 'react';
+
+const SITE_URL = 'https://monmarchegn.com';
+
+export const metadata = {
+  title: "À propos — Monmarché",
+  description: "Monmarché, l'application de vente et livraison de produits alimentaires frais à Conakry, en Guinée.",
+  alternates: {
+    canonical: `${SITE_URL}/a-propos`,
+  },
+};
 
 export default function AProposPage() {
   return (

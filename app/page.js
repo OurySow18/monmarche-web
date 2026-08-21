@@ -13,11 +13,40 @@ import ShortsGallery from "../components/ui/ShortsGallery";
 import VideoPresentation from "@/components/ui/VideoPresentation";
 import Hero from "./_components/Hero";
 
+const SITE_URL = "https://monmarchegn.com";
+
+export const metadata = {
+  alternates: {
+    canonical: SITE_URL,
+  },
+};
+
+const localBusinessJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  name: "Monmarché",
+  url: SITE_URL,
+  image: `${SITE_URL}/images/og-monmarche.png`,
+  email: "infos@monmarchegn.com",
+  telephone: "+224 121229",
+  address: {
+    "@type": "PostalAddress",
+    streetAddress: "Cosa",
+    addressLocality: "Conakry",
+    addressCountry: "GN",
+  },
+  areaServed: "Conakry",
+};
+
 export default function HomePage() {
   const recentPosts = getRecentPosts(3);
 
   return (
     <div className="bg-white text-gray-800">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessJsonLd) }}
+      />
       {/* Hero Section */}
       <Hero />
 
