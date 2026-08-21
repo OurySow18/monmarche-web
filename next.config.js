@@ -25,6 +25,15 @@ const nextConfig = {
         ]
       }
     ];
+  },
+  async redirects() {
+    return [
+      {
+        source: "/store/:slug",
+        destination: "/vendor/:slug",
+        permanent: true,
+      },
+    ];
   }
 };
 
