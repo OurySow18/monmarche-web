@@ -127,7 +127,7 @@ export default function OrangeMoneyReturnContent({ status = "return" }) {
       <div className="w-full overflow-hidden rounded-3xl border border-orange-100 bg-gradient-to-br from-orange-50 via-white to-orange-100 shadow-xl">
         <div className="flex flex-col gap-8 p-8 sm:p-10">
           <div className="flex flex-col items-center text-center gap-4">
-            <div className="flex items-center gap-3 text-xl font-semibold text-[#ff6f00]">
+            <div className="flex items-center gap-3 text-xl font-semibold text-primary">
               <Image
                 src="/logo.png"
                 alt="Monmarché"
@@ -180,7 +180,7 @@ export default function OrangeMoneyReturnContent({ status = "return" }) {
 
             <div className="flex flex-col gap-4 rounded-2xl border border-orange-100 bg-white p-6 shadow-md">
               <a href={deepLink}>
-                <Button className="w-full bg-[#ff6f00] py-3 text-base text-white hover:bg-orange-600">
+                <Button className="w-full bg-primary py-3 text-base text-white hover:bg-primary/90">
                   Ouvrir l&apos;application
                 </Button>
               </a>
@@ -193,7 +193,7 @@ export default function OrangeMoneyReturnContent({ status = "return" }) {
                 >
                   <Button
                     variant="outline"
-                    className="w-full border-[#ff6f00] text-[#ff6f00] hover:bg-orange-50"
+                    className="w-full border-primary text-primary hover:bg-primary/10"
                   >
                     App Store
                   </Button>
@@ -206,7 +206,7 @@ export default function OrangeMoneyReturnContent({ status = "return" }) {
                 >
                   <Button
                     variant="outline"
-                    className="w-full border-[#ff6f00] text-[#ff6f00] hover:bg-orange-50"
+                    className="w-full border-primary text-primary hover:bg-primary/10"
                   >
                     Play Store
                   </Button>

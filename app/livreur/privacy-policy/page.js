@@ -95,7 +95,7 @@ export default async function MonmarcheLivreurPrivacyPolicyPage() {
       <div className="mx-auto max-w-4xl">
         <div className="rounded-3xl border border-orange-100 bg-white shadow-sm">
           <div className="border-b border-orange-100 px-6 py-8 sm:px-10">
-            <p className="text-sm font-semibold uppercase tracking-wide text-[#ff6f00]">
+            <p className="text-sm font-semibold uppercase tracking-wide text-primary">
               Monmarche Livreur
             </p>
             <h1 className="mt-3 text-3xl font-bold text-gray-900 sm:text-4xl">

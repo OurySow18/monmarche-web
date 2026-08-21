@@ -53,7 +53,7 @@ export default function DeepLinkFallback({ id, product }) {
       <div className="overflow-hidden rounded-3xl border border-orange-100 shadow-xl bg-gradient-to-br from-orange-50 via-white to-orange-100">
         <div className="flex flex-col gap-10 p-8 sm:p-10">
           <div className="flex flex-col items-center text-center gap-4">
-            <div className="flex items-center gap-3 text-[#ff6f00] font-semibold text-xl">
+            <div className="flex items-center gap-3 text-primary font-semibold text-xl">
               <Image src="/logo.png" alt="Monmarché" width={56} height={56} className="rounded-xl shadow" />
               <span>Monmarché</span>
             </div>
@@ -115,7 +115,7 @@ export default function DeepLinkFallback({ id, product }) {
 
             <div className="bg-white rounded-2xl shadow-md border border-orange-100 p-6 flex flex-col gap-4">
               <a href={deepLink}>
-                <Button className="w-full bg-[#ff6f00] text-white hover:bg-orange-600 text-base py-3">
+                <Button className="w-full bg-primary text-white hover:bg-primary/90 text-base py-3">
                   Ouvrir dans l’app
                 </Button>
               </a>
@@ -126,7 +126,7 @@ export default function DeepLinkFallback({ id, product }) {
                   rel="noopener noreferrer"
                   className="flex-1"
                 >
-                  <Button variant="outline" className="w-full border-[#ff6f00] text-[#ff6f00] hover:bg-orange-50">
+                  <Button variant="outline" className="w-full border-primary text-primary hover:bg-primary/10">
                     App Store
                   </Button>
                 </Link>
@@ -136,7 +136,7 @@ export default function DeepLinkFallback({ id, product }) {
                   rel="noopener noreferrer"
                   className="flex-1"
                 >
-                  <Button variant="outline" className="w-full border-[#ff6f00] text-[#ff6f00] hover:bg-orange-50">
+                  <Button variant="outline" className="w-full border-primary text-primary hover:bg-primary/10">
                     Play Store
                   </Button>
                 </Link>

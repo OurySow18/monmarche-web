@@ -10,7 +10,7 @@ const shorts = [
 export default function ShortsGallery() {
   return (
     <section className="py-16 bg-white px-4 md:px-8">
-      <h2 className="text-2xl sm:text-3xl font-bold text-center mb-10 text-[#ff6f00]">
+      <h2 className="text-2xl sm:text-3xl font-bold text-center mb-10 text-primary">
         Découvrez nos Shorts
       </h2>
 

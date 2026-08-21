@@ -25,7 +25,7 @@ export default function GlobalError({ error, reset }) {
           <button
             type="button"
             onClick={() => reset()}
-            className="inline-flex rounded-full bg-[#ff6f00] px-5 py-3 text-sm font-semibold text-white hover:bg-orange-600"
+            className="inline-flex rounded-full bg-primary px-5 py-3 text-sm font-semibold text-white hover:bg-primary/90"
           >
             Réessayer
           </button>

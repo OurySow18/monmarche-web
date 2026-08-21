@@ -28,21 +28,21 @@ export default function Header() {
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2">
           <Image src={logo} alt="Logo Monmarché" width={36} height={36} />
-          <span className="text-[#ff6f00] font-bold text-lg">Monmarché</span>
+          <span className="text-primary font-bold text-lg">Monmarché</span>
         </Link>
 
         {/* Desktop Nav */}
         <nav className="hidden md:flex gap-6 text-sm">
-          <Link href="/a-propos" className="hover:text-[#ff6f00]">À propos</Link>
-          <Link href="/blog" className="hover:text-[#ff6f00]">Blog</Link>
-          <Link href="/conditions" className="hover:text-[#ff6f00]">Conditions</Link>
-          <Link href="/confidentialite" className="hover:text-[#ff6f00]">Confidentialité</Link>
+          <Link href="/a-propos" className="hover:text-primary">À propos</Link>
+          <Link href="/blog" className="hover:text-primary">Blog</Link>
+          <Link href="/conditions" className="hover:text-primary">Conditions</Link>
+          <Link href="/confidentialite" className="hover:text-primary">Confidentialité</Link>
         </nav>
 
         {/* Mobile Menu Toggle */}
         <button
           onClick={() => setIsOpen(!isOpen)}
-          className="md:hidden text-[#ff6f00]"
+          className="md:hidden text-primary"
           aria-label="Toggle menu"
         >
           {isOpen ? <X size={28} /> : <Menu size={28} />}
@@ -52,10 +52,10 @@ export default function Header() {
       {/* Mobile Nav Panel */}
       {isOpen && (
         <nav className="md:hidden bg-white border-t px-4 py-4 space-y-3 text-sm">
-          <Link href="/a-propos" onClick={handleLinkClick} className="block hover:text-[#ff6f00]">À propos</Link>
-          <Link href="/blog" onClick={handleLinkClick} className="block hover:text-[#ff6f00]">Blog</Link>
-          <Link href="/conditions" onClick={handleLinkClick} className="block hover:text-[#ff6f00]">Conditions</Link>
-          <Link href="/confidentialite" onClick={handleLinkClick} className="block hover:text-[#ff6f00]">Confidentialité</Link>
+          <Link href="/a-propos" onClick={handleLinkClick} className="block hover:text-primary">À propos</Link>
+          <Link href="/blog" onClick={handleLinkClick} className="block hover:text-primary">Blog</Link>
+          <Link href="/conditions" onClick={handleLinkClick} className="block hover:text-primary">Conditions</Link>
+          <Link href="/confidentialite" onClick={handleLinkClick} className="block hover:text-primary">Confidentialité</Link>
         </nav>
       )}
     </header>

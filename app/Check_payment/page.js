@@ -27,7 +27,7 @@ export default function PayPalReturnPage({ searchParams }) {
       <div className="mt-8">
         <Link
           href="/"
-          className="inline-flex items-center justify-center rounded-full bg-[#ff6f00] px-6 py-3 text-white font-semibold hover:bg-orange-600"
+          className="inline-flex items-center justify-center rounded-full bg-primary px-6 py-3 text-white font-semibold hover:bg-primary/90"
         >
           Retour à l’accueil
         </Link>

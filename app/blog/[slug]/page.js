@@ -78,7 +78,7 @@ export default async function BlogArticlePage({ params }) {
   return (
     <article className="max-w-3xl mx-auto px-4 py-16">
       <header className="mb-10 text-center">
-        <h1 className="text-4xl sm:text-5xl font-extrabold text-[#ff6f00] leading-tight drop-shadow-sm">
+        <h1 className="text-4xl sm:text-5xl font-extrabold text-primary leading-tight drop-shadow-sm">
           {data.title}
         </h1>
         {data.date && (
@@ -119,11 +119,11 @@ export default async function BlogArticlePage({ params }) {
 
       <footer className="mt-16 pt-8 border-t text-center text-sm text-gray-600">
         <p className="mb-3">Merci d’avoir lu cet article 🙏</p>
-        <div className="flex flex-wrap justify-center gap-4 mb-4 text-[#ff6f00] font-medium">
+        <div className="flex flex-wrap justify-center gap-4 mb-4 text-primary font-medium">
           <a href={`https://wa.me/004929258777?text=Découvrez cet article : ${articleUrl}`} target="_blank" className="hover:underline">Partager sur WhatsApp</a>
           <a href={`https://www.facebook.com/sharer/sharer.php?u=${articleUrl}`} target="_blank" className="hover:underline">Partager sur Facebook</a>
         </div>
-        <a href="/blog" className="inline-block mt-2 px-4 py-2 bg-[#ff6f00] text-white rounded-md hover:bg-orange-600 transition">← Retour au blog</a>
+        <a href="/blog" className="inline-block mt-2 px-4 py-2 bg-primary text-white rounded-md hover:bg-primary/90 transition">← Retour au blog</a>
       </footer>
     </article>
   );

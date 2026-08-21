@@ -1,4 +1,3 @@
-import dynamic from "next/dynamic";
 import fs from "fs";
 import path from "path";
 import { Button } from "@/components/ui/button";
@@ -12,11 +11,7 @@ import {
 import Link from "next/link";
 import ShortsGallery from "../components/ui/ShortsGallery";
 import VideoPresentation from "@/components/ui/VideoPresentation";
-
-const HeroSection = dynamic(() => import("./_components/Hero"), {
-  ssr: false,
-  loading: () => <HeroFallback />,
-});
+import Hero from "./_components/Hero";
 
 export default function HomePage() {
   const recentPosts = getRecentPosts(3);
@@ -24,7 +19,7 @@ export default function HomePage() {
   return (
     <div className="bg-white text-gray-800">
       {/* Hero Section */}
-      <HeroSection />
+      <Hero />
 
       {/* Features Section */}
       <section className="py-16 bg-gray-50 px-4 md:px-6">
@@ -76,7 +71,7 @@ export default function HomePage() {
       <ShortsGallery />
       {/* Blog Teaser Section */}
       <section className="py-16 px-4 md:px-6 bg-orange-50 text-center">
-        <h2 className="text-2xl sm:text-3xl font-bold text-[#ff6f00] mb-8">
+        <h2 className="text-2xl sm:text-3xl font-bold text-primary mb-8">
           Nos derniers articles
         </h2>
         <div className="max-w-5xl mx-auto grid gap-8 sm:grid-cols-2 lg:grid-cols-3 text-left">
@@ -96,7 +91,7 @@ export default function HomePage() {
         </div>
         <div className="mt-8">
           <Link href="/blog">
-            <Button className="bg-[#ff6f00] text-white px-6 py-3 hover:bg-orange-600">
+            <Button className="bg-primary text-white px-6 py-3 hover:bg-primary/90">
               Voir tous les articles
             </Button>
           </Link>
@@ -104,7 +99,7 @@ export default function HomePage() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 bg-[#ff6f00] text-white text-center px-4 md:px-6">
+      <section className="py-20 bg-primary text-white text-center px-4 md:px-6">
         <h2 className="text-3xl sm:text-4xl font-bold">
           Simplifiez vos courses dès aujourd&apos;hui !
         </h2>
@@ -118,7 +113,7 @@ export default function HomePage() {
             target="_blank"
             rel="noopener noreferrer"
           >
-            <Button className="text-lg px-6 py-3 bg-white text-[#ff6f00] w-full sm:w-auto">
+            <Button className="text-lg px-6 py-3 bg-white text-primary w-full sm:w-auto">
               Télécharger sur Android
             </Button>
           </a>
@@ -129,7 +124,7 @@ export default function HomePage() {
           >
             <Button
               variant="outline"
-              className="text-lg px-6 py-3 border-white text-[#ff6f00] w-full sm:w-auto"
+              className="text-lg px-6 py-3 border-white text-primary w-full sm:w-auto"
             >
               Télécharger sur iPhone
             </Button>
@@ -144,7 +139,7 @@ function Feature({ icon, title, description, slug }) {
   const content = (
     <Card className="rounded-2xl shadow-md hover:shadow-lg transition-all h-full">
       <CardContent className="p-6 flex flex-col items-center text-center h-full">
-        <div className="text-[#ff6f00] mb-4">{icon}</div>
+        <div className="text-primary mb-4">{icon}</div>
         <h3 className="text-lg sm:text-xl font-semibold mb-2">{title}</h3>
         <p className="text-gray-600 text-sm sm:text-base">{description}</p>
       </CardContent>
@@ -164,11 +159,11 @@ function BlogCard({ title, excerpt, slug }) {
   return (
     <Card className="rounded-2xl shadow-md hover:shadow-lg transition-all h-full">
       <CardContent className="p-6 flex flex-col justify-between h-full">
-        <h3 className="text-xl font-semibold text-[#ff6f00] mb-2">{title}</h3>
+        <h3 className="text-xl font-semibold text-primary mb-2">{title}</h3>
         <p className="text-gray-600 flex-1">{excerpt}</p>
         <Link
           href={`/blog/${slug}`}
-          className="mt-4 text-[#ff6f00] font-medium hover:underline"
+          className="mt-4 text-primary font-medium hover:underline"
         >
           Lire l&apos;article →
         </Link>
@@ -231,41 +226,4 @@ function extractFirstParagraph(content) {
     }
   }
   return "";
-}
-
-function HeroFallback() {
-  return (
-    <section className="min-h-screen bg-gradient-to-br from-orange-50 to-white flex flex-col items-center justify-center text-center px-4 md:px-6 py-12">
-      <h1 className="text-3xl sm:text-4xl md:text-6xl font-bold text-[#ff6f00]">
-        Vos courses livrées à domicile
-      </h1>
-      <p className="mt-4 text-base sm:text-lg md:text-xl max-w-xl">
-        Produits de qualité, livraison rapide et paiement sécurisé. Partout à
-        Conakry et bientôt dans toute la Guinée. Monmarche vous propose un service clientèle professionnel.
-      </p>
-      <div className="mt-6 flex flex-col sm:flex-row gap-4">
-        <a
-          href="https://play.google.com/store/apps/details?id=com.amasow.Monmarche&pcampaignid=web_share"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Button className="text-lg px-6 py-3 w-full sm:w-auto">
-            Télécharger sur Android
-          </Button>
-        </a>
-        <a
-          href="https://apps.apple.com/de/app/monmarche/id6479302215"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Button
-            variant="outline"
-            className="text-lg px-6 py-3 w-full sm:w-auto"
-          >
-            Télécharger sur iPhone
-          </Button>
-        </a>
-      </div>
-    </section>
-  );
 }

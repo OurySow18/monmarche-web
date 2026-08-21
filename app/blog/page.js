@@ -45,13 +45,13 @@ export default async function BlogPage() {
         {posts.map((post) => (
           <article key={post.slug}>
             <Link href={`/blog/${post.slug}`}>
-              <h2 className="text-xl font-semibold mb-2 text-[#ff6f00] hover:underline">{post.title}</h2>
+              <h2 className="text-xl font-semibold mb-2 text-primary hover:underline">{post.title}</h2>
             </Link>
             <p className="text-gray-600 text-sm mb-1 italic">
               Publié le {post.date ? new Date(post.date).toLocaleDateString('fr-FR') : 'Date à venir'}
             </p>
             <p className="text-gray-700">
-              {post.excerpt} <Link href={`/blog/${post.slug}`} className="text-[#ff6f00] font-medium hover:underline">Lire plus...</Link>
+              {post.excerpt} <Link href={`/blog/${post.slug}`} className="text-primary font-medium hover:underline">Lire plus...</Link>
             </p>
           </article>
         ))}
