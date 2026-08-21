@@ -2,19 +2,30 @@
 
 import fs from 'fs';
 import path from 'path';
-import matter from 'gray-matter';
 import { notFound } from 'next/navigation';
 import { MDXRemote } from 'next-mdx-remote/rsc';
 import Image from 'next/image';
+import { Button } from '@/components/ui/button';
 
 const BLOG_DIR = path.join(process.cwd(), 'content', 'blog');
+
+function extractMetadata(content) {
+  const match = content.match(/export const metadata\s*=\s*({[\s\S]*?});/);
+  if (!match) return {};
+  try {
+    // eslint-disable-next-line no-new-func
+    return Function(`"use strict"; return (${match[1]});`)();
+  } catch {
+    return {};
+  }
+}
 
 function getPost(slug) {
   const filePath = path.join(BLOG_DIR, `${slug}.mdx`);
   if (!fs.existsSync(filePath)) return null;
   const fileContent = fs.readFileSync(filePath, 'utf-8');
-  const { content, data } = matter(fileContent);
-  return { content, data };
+  const data = extractMetadata(fileContent);
+  return { content: fileContent, data };
 }
 
 export async function generateStaticParams() {
@@ -28,13 +39,14 @@ export async function generateStaticParams() {
 }
 
 export async function generateMetadata({ params }) {
-  const { slug } = params; 
+  const { slug } = params;
   const post = getPost(slug);
   if (!post) return {};
 
   const { data } = post;
   const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://monmarchegn.com';
   const url = `${baseUrl}/blog/${slug}`;
+  const image = data.cover || `${baseUrl}/images/og-monmarche.png`;
 
   return {
     title: data.title || 'Article de blog',
@@ -47,20 +59,19 @@ export async function generateMetadata({ params }) {
       description: data.excerpt || '',
       url,
       type: 'article',
-      images: data.cover
-        ? [
-            {
-              url: data.cover,
-              alt: data.title || 'Image de couverture',
-            },
-          ]
-        : undefined,
+      publishedTime: data.date || undefined,
+      images: [
+        {
+          url: image,
+          alt: data.title || 'Monmarché',
+        },
+      ],
     },
     twitter: {
       card: 'summary_large_image',
       title: data.title || 'Article de blog',
       description: data.excerpt || '',
-      images: data.cover ? [data.cover] : undefined,
+      images: [image],
     },
   };
 }
@@ -75,8 +86,28 @@ export default async function BlogArticlePage({ params }) {
   const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://monmarchegn.com';
   const articleUrl = `${baseUrl}/blog/${slug}`;
 
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: data.title,
+    description: data.excerpt,
+    image: [data.cover || `${baseUrl}/images/og-monmarche.png`],
+    datePublished: data.date,
+    author: { '@type': 'Organization', name: 'Monmarché' },
+    publisher: {
+      '@type': 'Organization',
+      name: 'Monmarché',
+      logo: { '@type': 'ImageObject', url: `${baseUrl}/logo.png` },
+    },
+    mainEntityOfPage: { '@type': 'WebPage', '@id': articleUrl },
+  };
+
   return (
     <article className="max-w-3xl mx-auto px-4 py-16">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <header className="mb-10 text-center">
         <h1 className="text-4xl sm:text-5xl font-extrabold text-primary leading-tight drop-shadow-sm">
           {data.title}
@@ -89,7 +120,7 @@ export default async function BlogArticlePage({ params }) {
           <div className="mt-6">
             <Image
               src={data.cover}
-              alt="Image de couverture"
+              alt={data.title || 'Monmarché'}
               width={800}
               height={400}
               className="rounded-xl shadow-md mx-auto"
@@ -117,7 +148,40 @@ export default async function BlogArticlePage({ params }) {
         </div>
       )}
 
-      <footer className="mt-16 pt-8 border-t text-center text-sm text-gray-600">
+      <div className="mt-16 rounded-3xl bg-primary px-6 py-10 text-center text-white sm:px-10">
+        <h2 className="text-2xl font-bold sm:text-3xl">
+          Envie de passer commande ?
+        </h2>
+        <p className="mx-auto mt-3 max-w-xl text-white/90">
+          Téléchargez Monmarché et recevez vos courses à domicile à Conakry,
+          en quelques clics.
+        </p>
+        <div className="mt-6 flex flex-col justify-center gap-4 sm:flex-row">
+          <a
+            href="https://play.google.com/store/apps/details?id=com.amasow.Monmarche&pcampaignid=web_share"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <Button className="w-full bg-white text-primary hover:bg-white/90 sm:w-auto">
+              Télécharger sur Android
+            </Button>
+          </a>
+          <a
+            href="https://apps.apple.com/de/app/monmarche/id6479302215"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <Button
+              variant="outline"
+              className="w-full border-white text-white hover:bg-white/10 sm:w-auto"
+            >
+              Télécharger sur iPhone
+            </Button>
+          </a>
+        </div>
+      </div>
+
+      <footer className="mt-10 pt-8 border-t text-center text-sm text-gray-600">
         <p className="mb-3">Merci d’avoir lu cet article 🙏</p>
         <div className="flex flex-wrap justify-center gap-4 mb-4 text-primary font-medium">
           <a href={`https://wa.me/004929258777?text=Découvrez cet article : ${articleUrl}`} target="_blank" className="hover:underline">Partager sur WhatsApp</a>

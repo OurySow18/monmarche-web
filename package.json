@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build && node scripts/copy-build.js",
+    "build": "next build && next-sitemap && node scripts/copy-build.js",
     "deploy": "npm run build && firebase deploy --only \"hosting,functions\"",
     "start": "next start",
     "export": "next export",
@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "@radix-ui/react-slot": "^1.1.2",
+    "@tailwindcss/typography": "^0.5.20",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "firebase": "^12.8.0",

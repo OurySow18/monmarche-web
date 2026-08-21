@@ -2,6 +2,9 @@ const fs = require("fs/promises");
 const path = require("path");
 
 async function copyDir(source, destination) {
+  // rm first so files deleted from the source (e.g. an old blog post)
+  // don't linger as stale leftovers in the destination.
+  await fs.rm(destination, { recursive: true, force: true });
   await fs.cp(source, destination, { recursive: true, force: true });
 }
 
