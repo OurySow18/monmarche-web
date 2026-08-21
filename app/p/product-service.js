@@ -10,6 +10,14 @@ export const FALLBACK_IMAGE =
 const FIRESTORE_COLLECTION =
   process.env.FIRESTORE_PRODUCTS_COLLECTION || "products_public";
 
+// Firebase web config is not secret (access is governed by Firestore
+// security rules, not by keeping this key private) -- defaulted here so
+// product lookups keep working even if the env var isn't set on the
+// deployed function.
+export const FB_PROJECT_ID = process.env.NEXT_PUBLIC_FB_PROJECT_ID || "monmarhe";
+export const FB_API_KEY =
+  process.env.NEXT_PUBLIC_FB_API_KEY || "AIzaSyDCENsh0tZlNtbcNAZZHqt1RtkNIsWsNuE";
+
 /**
  * Récupère un produit depuis Firestore (si credentials fournis), sinon via API, sinon mock local.
  */
@@ -104,9 +112,8 @@ async function getProductFromFirestoreBySlug(slug) {
 }
 
 async function getProductFromFirestoreRest(productId) {
-  const projectId = process.env.NEXT_PUBLIC_FB_PROJECT_ID;
-  const apiKey = process.env.NEXT_PUBLIC_FB_API_KEY;
-  if (!projectId || !apiKey) return null;
+  const projectId = FB_PROJECT_ID;
+  const apiKey = FB_API_KEY;
 
   const url = `https://firestore.googleapis.com/v1/projects/${projectId}/databases/(default)/documents/${FIRESTORE_COLLECTION}/${productId}?key=${apiKey}`;
   try {
@@ -122,9 +129,8 @@ async function getProductFromFirestoreRest(productId) {
 }
 
 async function getProductFromFirestoreRestBySlug(slug) {
-  const projectId = process.env.NEXT_PUBLIC_FB_PROJECT_ID;
-  const apiKey = process.env.NEXT_PUBLIC_FB_API_KEY;
-  if (!projectId || !apiKey) return null;
+  const projectId = FB_PROJECT_ID;
+  const apiKey = FB_API_KEY;
 
   const url = `https://firestore.googleapis.com/v1/projects/${projectId}/databases/(default)/documents:runQuery?key=${apiKey}`;
   console.log("[product] REST slug lookup", {

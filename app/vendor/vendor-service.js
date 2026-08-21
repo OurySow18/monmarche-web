@@ -1,5 +1,7 @@
 import {
   FALLBACK_IMAGE,
+  FB_API_KEY,
+  FB_PROJECT_ID,
   SITE_URL,
   buildSocialMetadata,
   firestoreDocToPlain,
@@ -157,11 +159,8 @@ async function getVendorRawFromFirestoreBySlug(slug) {
 }
 
 async function getVendorRawFromFirestoreRestById(vendorId) {
-  const projectId = process.env.NEXT_PUBLIC_FB_PROJECT_ID;
-  const apiKey = process.env.NEXT_PUBLIC_FB_API_KEY;
-  if (!projectId || !apiKey) {
-    return { raw: null, errorCode: "vendor_service_unavailable" };
-  }
+  const projectId = FB_PROJECT_ID;
+  const apiKey = FB_API_KEY;
 
   const directUrl = `https://firestore.googleapis.com/v1/projects/${projectId}/databases/(default)/documents/${FIRESTORE_VENDORS_COLLECTION}/${vendorId}?key=${apiKey}`;
 
@@ -222,11 +221,8 @@ async function getVendorRawFromFirestoreRestById(vendorId) {
 }
 
 async function getVendorRawFromFirestoreRestBySlug(slug) {
-  const projectId = process.env.NEXT_PUBLIC_FB_PROJECT_ID;
-  const apiKey = process.env.NEXT_PUBLIC_FB_API_KEY;
-  if (!projectId || !apiKey) {
-    return { raw: null, errorCode: "vendor_service_unavailable" };
-  }
+  const projectId = FB_PROJECT_ID;
+  const apiKey = FB_API_KEY;
 
   const queryUrl = `https://firestore.googleapis.com/v1/projects/${projectId}/databases/(default)/documents:runQuery?key=${apiKey}`;
   const body = {
