@@ -3,7 +3,7 @@
     "details": [
       {
         "appID": "Q969DHL7LZ.com.amasow.Monmarche",
-        "paths": ["NOT /avis*", "NOT /avis", "/p/*", "/*"]
+        "paths": ["/p/*", "/*"]
       }
     ]
   }
