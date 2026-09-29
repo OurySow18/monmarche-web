@@ -12,6 +12,8 @@ import Link from "next/link";
 import ShortsGallery from "../components/ui/ShortsGallery";
 import VideoPresentation from "@/components/ui/VideoPresentation";
 import Hero from "./_components/Hero";
+import { CATEGORIES } from "@/lib/catalog";
+import { COMMUNES } from "@/lib/conakry";
 
 const SITE_URL = "https://monmarchegn.com";
 
@@ -35,7 +37,10 @@ const localBusinessJsonLd = {
     addressLocality: "Conakry",
     addressCountry: "GN",
   },
-  areaServed: "Conakry",
+  areaServed: COMMUNES.map((commune) => ({
+    "@type": "AdministrativeArea",
+    name: `${commune.name}, Conakry`,
+  })),
 };
 
 export default function HomePage() {
@@ -49,6 +54,44 @@ export default function HomePage() {
       />
       {/* Hero Section */}
       <Hero />
+
+      {/* Catégories et zones de livraison : maillage interne pour le référencement */}
+      <section className="py-16 px-4 md:px-6">
+        <div className="max-w-6xl mx-auto space-y-10">
+          <div className="space-y-4">
+            <h2 className="text-2xl sm:text-3xl font-semibold text-center">
+              Que voulez-vous acheter ?
+            </h2>
+            <div className="flex flex-wrap justify-center gap-2">
+              {CATEGORIES.map((category) => (
+                <Link
+                  key={category.slug}
+                  href={`/categorie/${category.slug}`}
+                  className="rounded-full border border-orange-200 px-4 py-2 text-sm hover:bg-orange-50"
+                >
+                  {category.name}
+                </Link>
+              ))}
+            </div>
+          </div>
+          <div className="space-y-4 text-center">
+            <h2 className="text-2xl sm:text-3xl font-semibold">
+              Livraison dans toutes les communes de Conakry
+            </h2>
+            <div className="flex flex-wrap justify-center gap-4">
+              {COMMUNES.map((commune) => (
+                <Link
+                  key={commune.slug}
+                  href={`/livraison-conakry/${commune.slug}`}
+                  className="text-primary hover:underline"
+                >
+                  {commune.name}
+                </Link>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
 
       {/* Features Section */}
       <section className="py-16 bg-gray-50 px-4 md:px-6">

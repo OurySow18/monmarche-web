@@ -28,6 +28,8 @@ export default function Footer() {
         {/* Navigation */}
         <div>
           <h3 className="font-semibold text-gray-900 mb-3">Navigation</h3>
+          <Link href="/categorie" className="block hover:underline text-primary">Toutes les catégories</Link>
+          <Link href="/livraison-conakry" className="block hover:underline text-primary">Livraison à Conakry</Link>
           <Link href="/conditions" className="block hover:underline text-primary">Conditions générales</Link>
           <Link href="/confidentialite" className="block hover:underline text-primary">Confidentialité</Link>
           <Link href="/a-propos" className="block hover:underline text-primary">À propos</Link>

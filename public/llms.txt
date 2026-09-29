@@ -1,0 +1,39 @@
+# Monmarché
+
+> Monmarché (monmarchegn.com) est une marketplace guinéenne d'achat et de vente en ligne. Les clients achètent auprès de plusieurs vendeurs guinéens dans une seule application (Android et iPhone) et se font livrer à domicile partout à Conakry, en Guinée.
+
+- Zone de livraison : toute la ville de Conakry, dans les communes de Kaloum, Dixinn, Matam, Ratoma et Matoto.
+- Produits : épicerie et alimentation, mode et vêtements (boubous, kaftans, abayas, chaussures), beauté et parfums, maison et électroménager, bébé, électronique et téléphones, jouets, services.
+- Prix affichés en francs guinéens (GNF). Paiement en ligne ou à la livraison.
+- Vendeurs : les commerçants guinéens peuvent ouvrir une boutique sur Monmarché et vendre en ligne.
+- Contact : infos@monmarchegn.com, Cosa, Conakry.
+
+## Catalogue
+
+- [Toutes les catégories](https://monmarchegn.com/categorie): liste des catégories de produits disponibles
+- [Épicerie et alimentation](https://monmarchegn.com/categorie/epicerie)
+- [Mode et vêtements](https://monmarchegn.com/categorie/mode)
+- [Beauté et soins](https://monmarchegn.com/categorie/beaute)
+- [Maison et électroménager](https://monmarchegn.com/categorie/maison)
+- [Bébé et puériculture](https://monmarchegn.com/categorie/bebe)
+- [Électronique et téléphones](https://monmarchegn.com/categorie/electronique)
+- [Sitemap du catalogue](https://monmarchegn.com/sitemap-catalogue.xml): toutes les fiches produits et boutiques
+
+## Livraison
+
+- [Livraison à Conakry](https://monmarchegn.com/livraison-conakry)
+- [Kaloum](https://monmarchegn.com/livraison-conakry/kaloum)
+- [Dixinn](https://monmarchegn.com/livraison-conakry/dixinn)
+- [Matam](https://monmarchegn.com/livraison-conakry/matam)
+- [Ratoma](https://monmarchegn.com/livraison-conakry/ratoma)
+- [Matoto](https://monmarchegn.com/livraison-conakry/matoto)
+
+## Application
+
+- [Android (Google Play)](https://play.google.com/store/apps/details?id=com.amasow.Monmarche)
+- [iPhone (App Store)](https://apps.apple.com/app/monmarche/id6479302215)
+
+## Optional
+
+- [À propos](https://monmarchegn.com/a-propos)
+- [Blog](https://monmarchegn.com/blog)

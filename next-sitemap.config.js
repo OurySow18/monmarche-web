@@ -12,6 +12,13 @@ module.exports = {
       '/return',
       '/payement/*',
       '/avis',
+      '/p',
+      // Listés dans le sitemap dynamique ci-dessous, à jour sans redéploiement.
+      '/categorie',
+      '/categorie/*',
+      '/sitemap-catalogue.xml',
     ],
+    robotsTxtOptions: {
+      additionalSitemaps: ['https://monmarchegn.com/sitemap-catalogue.xml'],
+    },
   };
-  

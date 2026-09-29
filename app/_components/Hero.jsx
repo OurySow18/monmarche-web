@@ -13,7 +13,7 @@ export default function Hero() {
         transition={{ duration: 0.6 }}
         className="text-3xl sm:text-4xl md:text-6xl font-bold text-primary"
       >
-        Vos courses livrées à domicile
+        Achetez en ligne en Guinée, livré chez vous à Conakry
       </motion.h1>
       <motion.p
         initial={{ opacity: 0, y: 10 }}
@@ -21,8 +21,9 @@ export default function Hero() {
         transition={{ duration: 0.6, delay: 0.1 }}
         className="mt-4 text-base sm:text-lg md:text-xl max-w-xl"
       >
-        Produits de qualité, livraison rapide et paiement sécurisé. Partout à
-        Conakry et bientôt dans toute la Guinée. Monmarche vous propose un service clientèle professionnel.
+        Épicerie, mode, beauté, maison, bébé et électronique : des centaines de
+        produits de vendeurs guinéens dans une seule application. Livraison rapide
+        partout à Conakry, paiement sécurisé et service client professionnel.
       </motion.p>
       <motion.div
         initial={{ opacity: 0 }}

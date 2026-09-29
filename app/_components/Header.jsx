@@ -33,6 +33,8 @@ export default function Header() {
 
         {/* Desktop Nav */}
         <nav className="hidden md:flex gap-6 text-sm">
+          <Link href="/categorie" className="hover:text-primary">Catégories</Link>
+          <Link href="/livraison-conakry" className="hover:text-primary">Livraison</Link>
           <Link href="/a-propos" className="hover:text-primary">À propos</Link>
           <Link href="/blog" className="hover:text-primary">Blog</Link>
           <Link href="/conditions" className="hover:text-primary">Conditions</Link>
@@ -52,6 +54,8 @@ export default function Header() {
       {/* Mobile Nav Panel */}
       {isOpen && (
         <nav className="md:hidden bg-white border-t px-4 py-4 space-y-3 text-sm">
+          <Link href="/categorie" onClick={handleLinkClick} className="block hover:text-primary">Catégories</Link>
+          <Link href="/livraison-conakry" onClick={handleLinkClick} className="block hover:text-primary">Livraison</Link>
           <Link href="/a-propos" onClick={handleLinkClick} className="block hover:text-primary">À propos</Link>
           <Link href="/blog" onClick={handleLinkClick} className="block hover:text-primary">Blog</Link>
           <Link href="/conditions" onClick={handleLinkClick} className="block hover:text-primary">Conditions</Link>
