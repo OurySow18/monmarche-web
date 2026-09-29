@@ -120,6 +120,11 @@ export default function GuidePage({ params }) {
               {section.steps.map((item) => <li key={item}>{item}</li>)}
             </ol>
           ) : null}
+          {section.link ? (
+            <a href={section.link.href} target="_blank" rel="noopener" className="inline-block">
+              <Button className="px-6 py-3">{section.link.label}</Button>
+            </a>
+          ) : null}
           {section.categories ? (
             <div className="flex flex-wrap gap-2">
               {CATEGORIES.map((category) => (
