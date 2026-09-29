@@ -1,4 +1,5 @@
 import Image from "next/image";
+import logo from "@/public/logo.png";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { FALLBACK_IMAGE } from "./product-service";
@@ -54,7 +55,7 @@ export default function DeepLinkFallback({ id, product }) {
         <div className="flex flex-col gap-10 p-8 sm:p-10">
           <div className="flex flex-col items-center text-center gap-4">
             <div className="flex items-center gap-3 text-primary font-semibold text-xl">
-              <Image src="/logo.png" alt="Monmarché" width={56} height={56} className="rounded-xl shadow" />
+              <Image src={logo} alt="Monmarché" width={56} height={56} className="rounded-xl shadow" />
               <span>Monmarché</span>
             </div>
             <h1 className="text-3xl sm:text-4xl font-bold text-gray-900">

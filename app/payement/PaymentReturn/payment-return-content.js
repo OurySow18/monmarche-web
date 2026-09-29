@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import logo from "@/public/logo.png";
 import Link from "next/link";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
@@ -130,7 +131,7 @@ export default function OrangeMoneyReturnContent({ status = "return" }) {
           <div className="flex flex-col items-center text-center gap-4">
             <div className="flex items-center gap-3 text-xl font-semibold text-primary">
               <Image
-                src="/logo.png"
+                src={logo}
                 alt="Monmarché"
                 width={56}
                 height={56}
