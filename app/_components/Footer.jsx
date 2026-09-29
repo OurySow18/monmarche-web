@@ -6,7 +6,7 @@ import { Mail, Phone, MapPin, Clock } from "lucide-react";
 
 export default function Footer() {
   return (
-    <footer className="bg-gray-100 py-10 px-6 border-t mt-16">
+    <footer className="bg-gray-100 pt-10 pb-28 md:pb-10 px-6 border-t mt-16">
       <div className="max-w-7xl mx-auto grid gap-8 grid-cols-1 sm:grid-cols-2 md:grid-cols-4 text-sm text-gray-700">
         {/* Contact */}
         <div>

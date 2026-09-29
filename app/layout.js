@@ -2,6 +2,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import Header from "@/app/_components/Header";
 import Footer from "@/app/_components/Footer";
+import MobileAppBar from "@/app/_components/MobileAppBar";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -91,6 +92,7 @@ export default function RootLayout({ children }) {
           {children}
         </main>
         <Footer />
+        <MobileAppBar />
       </body>
     </html>
   );

@@ -1,11 +1,14 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { ArrowRight, CheckCircle2, MapPin, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { AppCTA, CategoryIcon, FaqList, PageHero, TrustBar } from "@/app/_components/Marketing";
+import StoreButtons from "@/app/_components/StoreButtons";
 import { GUIDES, getGuide } from "@/lib/guides";
 import { CATEGORIES } from "@/lib/catalog";
 import { COMMUNES } from "@/lib/conakry";
 import { SITE_URL } from "@/app/p/product-service";
-import { APP_STORE_URL, PLAY_STORE_URL } from "@/app/p/fallback-content";
+import { APP_STORE_URL, PLAY_STORE_URL } from "@/lib/app-links";
 
 // Seuls les guides listés existent : toute autre URL à la racine renvoie 404.
 export const dynamicParams = false;
@@ -32,22 +35,12 @@ export function generateMetadata({ params }) {
   };
 }
 
-function Pill({ href, children }) {
-  return (
-    <Link
-      href={href}
-      className="rounded-full border border-orange-200 px-4 py-1.5 text-sm hover:bg-orange-50"
-    >
-      {children}
-    </Link>
-  );
-}
-
 export default function GuidePage({ params }) {
   const guide = getGuide(params.guide);
   if (!guide) notFound();
 
   const url = `${SITE_URL}/${guide.slug}`;
+  const isSellerGuide = guide.slug === "vendre-en-ligne-guinee";
   const jsonLd = [
     {
       "@context": "https://schema.org",
@@ -82,102 +75,132 @@ export default function GuidePage({ params }) {
   ];
 
   return (
-    <article className="max-w-4xl mx-auto py-6 space-y-10">
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
-      <header className="space-y-4">
-        <h1 className="text-3xl sm:text-4xl font-bold text-gray-900">{guide.h1}</h1>
-        <p className="text-lg text-gray-700">{guide.intro}</p>
-        {guide.appButtons ? (
-          <div className="flex flex-col sm:flex-row gap-3">
-            <a href={PLAY_STORE_URL} target="_blank" rel="noopener noreferrer">
-              <Button className="w-full sm:w-auto px-6 py-3">Télécharger sur Android</Button>
-            </a>
-            <a href={APP_STORE_URL} target="_blank" rel="noopener noreferrer">
-              <Button variant="outline" className="w-full sm:w-auto px-6 py-3">
-                Télécharger sur iPhone
-              </Button>
-            </a>
-          </div>
-        ) : null}
-      </header>
+    <article className="max-w-6xl mx-auto space-y-12">
+      <PageHero
+        eyebrow="Guide Monmarché · Guinée"
+        icon={<Sparkles className="h-4 w-4" aria-hidden="true" />}
+        title={guide.h1}
+        subtitle={guide.intro}
+      >
+        {isSellerGuide ? (
+          <a href="https://monmarchebusiness.com" target="_blank" rel="noopener" className="inline-block">
+            <Button className="bg-white px-6 py-6 text-base font-bold text-primary hover:bg-orange-50">
+              Ouvrir ma boutique
+            </Button>
+          </a>
+        ) : (
+          <StoreButtons variant="light" />
+        )}
+      </PageHero>
 
-      {guide.sections.map((section) => (
-        <section key={section.h2} className="space-y-3">
-          <h2 className="text-2xl font-semibold text-gray-900">{section.h2}</h2>
-          {section.paragraphs?.map((text) => (
-            <p key={text} className="text-gray-700">{text}</p>
-          ))}
-          {section.list ? (
-            <ul className="list-disc pl-5 space-y-2 text-gray-700">
-              {section.list.map((item) => <li key={item}>{item}</li>)}
-            </ul>
-          ) : null}
-          {section.steps ? (
-            <ol className="list-decimal pl-5 space-y-2 text-gray-700">
-              {section.steps.map((item) => <li key={item}>{item}</li>)}
-            </ol>
-          ) : null}
-          {section.link ? (
-            <a href={section.link.href} target="_blank" rel="noopener" className="inline-block">
-              <Button className="px-6 py-3">{section.link.label}</Button>
-            </a>
-          ) : null}
-          {section.categories ? (
-            <div className="flex flex-wrap gap-2">
-              {CATEGORIES.map((category) => (
-                <Pill key={category.slug} href={`/categorie/${category.slug}`}>
-                  {category.name}
-                </Pill>
-              ))}
-            </div>
-          ) : null}
-        </section>
-      ))}
+      {isSellerGuide ? null : <TrustBar />}
 
-      <section className="rounded-2xl bg-orange-50 p-6 space-y-4">
-        <h2 className="text-2xl font-semibold text-gray-900">
+      <div className="space-y-6">
+        {guide.sections.map((section) => (
+          <section
+            key={section.h2}
+            className="space-y-4 rounded-3xl border border-gray-100 bg-white p-6 sm:p-8 shadow-sm"
+          >
+            <h2 className="text-xl sm:text-2xl font-extrabold text-gray-900">{section.h2}</h2>
+            {section.paragraphs?.map((text) => (
+              <p key={text} className="text-gray-700">{text}</p>
+            ))}
+            {section.list ? (
+              <ul className="grid gap-3 md:grid-cols-2">
+                {section.list.map((item) => (
+                  <li key={item} className="flex gap-3 text-gray-700">
+                    <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-primary" aria-hidden="true" />
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            ) : null}
+            {section.steps ? (
+              <ol className="space-y-3">
+                {section.steps.map((item, index) => (
+                  <li key={item} className="flex gap-3 text-gray-700">
+                    <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-primary text-sm font-bold text-white">
+                      {index + 1}
+                    </span>
+                    {item}
+                  </li>
+                ))}
+              </ol>
+            ) : null}
+            {section.link ? (
+              <a href={section.link.href} target="_blank" rel="noopener" className="inline-block">
+                <Button className="px-6 py-3">{section.link.label}</Button>
+              </a>
+            ) : null}
+            {section.categories ? (
+              <div className="grid grid-cols-2 sm:grid-cols-5 gap-3">
+                {CATEGORIES.map((category) => (
+                  <Link
+                    key={category.slug}
+                    href={`/categorie/${category.slug}`}
+                    className="group flex flex-col items-center gap-2 rounded-2xl bg-orange-50 p-4 text-center text-sm font-semibold text-gray-900 hover:bg-primary hover:text-white"
+                  >
+                    <CategoryIcon slug={category.slug} className="h-6 w-6 text-primary group-hover:text-white" />
+                    {category.short}
+                  </Link>
+                ))}
+              </div>
+            ) : null}
+          </section>
+        ))}
+      </div>
+
+      <section className="rounded-3xl bg-orange-50 p-6 sm:p-10 space-y-5">
+        <h2 className="text-2xl sm:text-3xl font-extrabold text-gray-900">
           Partout à Conakry, dans votre quartier
         </h2>
-        <p className="text-gray-700">
-          Monmarché livre dans les cinq communes de Conakry. Retrouvez votre quartier :
-        </p>
-        <ul className="space-y-2 text-sm text-gray-700">
+        <ul className="grid gap-3 md:grid-cols-2">
           {COMMUNES.map((commune) => (
             <li key={commune.slug}>
               <Link
                 href={`/livraison-conakry/${commune.slug}`}
-                className="font-semibold text-primary hover:underline"
+                className="group block h-full rounded-2xl bg-white p-4 shadow-sm transition-shadow hover:shadow-md"
               >
-                {commune.name}
-              </Link>{" "}
-              : {commune.quartiers.join(", ")}
+                <span className="inline-flex items-center gap-1.5 font-bold text-gray-900 group-hover:text-primary">
+                  <MapPin className="h-4 w-4 text-primary" aria-hidden="true" />
+                  {commune.name}
+                </span>
+                <span className="mt-1 block text-sm text-gray-600">{commune.quartiers.join(", ")}</span>
+              </Link>
             </li>
           ))}
         </ul>
       </section>
 
-      <section className="space-y-4">
-        <h2 className="text-2xl font-semibold text-gray-900">Questions fréquentes</h2>
-        {guide.faq.map((item) => (
-          <div key={item.q}>
-            <h3 className="font-semibold text-gray-900">{item.q}</h3>
-            <p className="text-gray-700">{item.a}</p>
-          </div>
-        ))}
-      </section>
+      <FaqList faq={guide.faq} />
 
-      <nav className="space-y-2" aria-label="Autres guides">
-        <h2 className="text-lg font-semibold text-gray-900">À lire aussi</h2>
+      {isSellerGuide ? null : <AppCTA />}
+
+      <nav className="space-y-3" aria-label="Autres guides">
+        <h2 className="text-lg font-bold text-gray-900">À lire aussi</h2>
         <div className="flex flex-wrap gap-2">
           {GUIDES.filter((other) => other.slug !== guide.slug).map((other) => (
-            <Pill key={other.slug} href={`/${other.slug}`}>{other.nav}</Pill>
+            <Link
+              key={other.slug}
+              href={`/${other.slug}`}
+              className="inline-flex items-center gap-1 rounded-full border border-gray-200 px-4 py-2 text-sm hover:border-orange-200 hover:text-primary"
+            >
+              {other.nav} <ArrowRight className="h-3.5 w-3.5" aria-hidden="true" />
+            </Link>
           ))}
-          <Pill href="/livraison-conakry">Livraison à Conakry</Pill>
+          <Link
+            href="/livraison-conakry"
+            className="inline-flex items-center gap-1 rounded-full border border-gray-200 px-4 py-2 text-sm hover:border-orange-200 hover:text-primary"
+          >
+            Livraison à Conakry <ArrowRight className="h-3.5 w-3.5" aria-hidden="true" />
+          </Link>
         </div>
       </nav>
+      {/* Données structurées en dernier : un <script> en tête décale le contenu (space-y). */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
     </article>
   );
 }

@@ -32,14 +32,20 @@ export default function Header() {
         </Link>
 
         {/* Desktop Nav */}
-        <nav className="hidden md:flex gap-6 text-sm">
+        <nav className="hidden md:flex items-center gap-6 text-sm">
           <Link href="/categorie" className="hover:text-primary">Catégories</Link>
           <Link href="/livraison-conakry" className="hover:text-primary">Livraison</Link>
           <Link href="/a-propos" className="hover:text-primary">À propos</Link>
+          <Link href="/vendre-en-ligne-guinee" className="hover:text-primary">Vendre</Link>
           <Link href="/blog" className="hover:text-primary">Blog</Link>
-          <Link href="/conditions" className="hover:text-primary">Conditions</Link>
-          <Link href="/confidentialite" className="hover:text-primary">Confidentialité</Link>
         </nav>
+
+        <Link
+          href="/application-mobile-guinee"
+          className="hidden md:inline-flex items-center rounded-full bg-primary px-5 py-2 text-sm font-semibold text-white shadow hover:bg-primary/90"
+        >
+          Télécharger l&apos;app
+        </Link>
 
         {/* Mobile Menu Toggle */}
         <button

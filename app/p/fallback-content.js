@@ -4,9 +4,7 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { FALLBACK_IMAGE } from "./product-service";
 
-export const APP_STORE_URL = "https://apps.apple.com/de/app/monmarche/id6479302215";
-export const PLAY_STORE_URL =
-  "https://play.google.com/store/apps/details?id=com.amasow.Monmarche&pcampaignid=web_share";
+import { APP_STORE_URL, PLAY_STORE_URL } from "@/lib/app-links";
 
 export function buildMetadata(productId) {
   const hasProduct = Boolean(productId);
