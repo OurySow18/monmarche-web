@@ -7,3 +7,4 @@ Host: https://monmarchegn.com
 
 # Sitemaps
 Sitemap: https://monmarchegn.com/sitemap.xml
+Sitemap: https://monmarchegn.com/sitemap-catalogue.xml

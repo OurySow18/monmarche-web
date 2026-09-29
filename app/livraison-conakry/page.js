@@ -6,7 +6,7 @@ import { SITE_URL } from "@/app/p/product-service";
 const url = `${SITE_URL}/livraison-conakry`;
 
 export const metadata = {
-  title: "Livraison à domicile à Conakry : toutes les communes et quartiers",
+  title: "Livraison à domicile en Guinée et à Conakry : toutes les communes et quartiers",
   description:
     "Monmarché livre vos achats en ligne à Kaloum, Dixinn, Matam, Ratoma et Matoto. Commandez épicerie, mode, beauté et électronique, livrés chez vous à Conakry.",
   alternates: { canonical: url },

@@ -30,6 +30,10 @@ export default function Footer() {
           <h3 className="font-semibold text-gray-900 mb-3">Navigation</h3>
           <Link href="/categorie" className="block hover:underline text-primary">Toutes les catégories</Link>
           <Link href="/livraison-conakry" className="block hover:underline text-primary">Livraison à Conakry</Link>
+          <Link href="/vente-en-ligne-guinee" className="block hover:underline text-primary">Achat en ligne en Guinée</Link>
+          <Link href="/paiement-en-ligne-guinee" className="block hover:underline text-primary">Paiement en ligne</Link>
+          <Link href="/application-mobile-guinee" className="block hover:underline text-primary">Application mobile</Link>
+          <Link href="/vendre-en-ligne-guinee" className="block hover:underline text-primary">Vendre en ligne</Link>
           <Link href="/conditions" className="block hover:underline text-primary">Conditions générales</Link>
           <Link href="/confidentialite" className="block hover:underline text-primary">Confidentialité</Link>
           <Link href="/a-propos" className="block hover:underline text-primary">À propos</Link>

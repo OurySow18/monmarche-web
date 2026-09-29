@@ -14,6 +14,7 @@ import VideoPresentation from "@/components/ui/VideoPresentation";
 import Hero from "./_components/Hero";
 import { CATEGORIES } from "@/lib/catalog";
 import { COMMUNES } from "@/lib/conakry";
+import { GUIDES } from "@/lib/guides";
 
 const SITE_URL = "https://monmarchegn.com";
 
@@ -86,6 +87,22 @@ export default function HomePage() {
                   className="text-primary hover:underline"
                 >
                   {commune.name}
+                </Link>
+              ))}
+            </div>
+          </div>
+          <div className="space-y-4 text-center">
+            <h2 className="text-2xl sm:text-3xl font-semibold">
+              Acheter, payer et vendre en ligne en Guinée
+            </h2>
+            <div className="flex flex-wrap justify-center gap-2">
+              {GUIDES.map((guide) => (
+                <Link
+                  key={guide.slug}
+                  href={`/${guide.slug}`}
+                  className="rounded-full border border-orange-200 px-4 py-2 text-sm hover:bg-orange-50"
+                >
+                  {guide.nav}
                 </Link>
               ))}
             </div>

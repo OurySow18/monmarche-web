@@ -4,7 +4,7 @@
 
 - Zone de livraison : toute la ville de Conakry, dans les communes de Kaloum, Dixinn, Matam, Ratoma et Matoto.
 - Produits : épicerie et alimentation, mode et vêtements (boubous, kaftans, abayas, chaussures), beauté et parfums, maison et électroménager, bébé, électronique et téléphones, jouets, services.
-- Prix affichés en francs guinéens (GNF). Paiement en ligne ou à la livraison.
+- Prix affichés en francs guinéens (GNF). Paiement par Orange Money, virement bancaire ou à la livraison.
 - Vendeurs : les commerçants guinéens peuvent ouvrir une boutique sur Monmarché et vendre en ligne.
 - Contact : infos@monmarchegn.com, Cosa, Conakry.
 
@@ -18,6 +18,13 @@
 - [Bébé et puériculture](https://monmarchegn.com/categorie/bebe)
 - [Électronique et téléphones](https://monmarchegn.com/categorie/electronique)
 - [Sitemap du catalogue](https://monmarchegn.com/sitemap-catalogue.xml): toutes les fiches produits et boutiques
+
+## Guides
+
+- [Vente et achat en ligne en Guinée](https://monmarchegn.com/vente-en-ligne-guinee)
+- [Paiement en ligne en Guinée](https://monmarchegn.com/paiement-en-ligne-guinee): Orange Money, virement bancaire ou paiement à la livraison
+- [Application mobile Monmarché](https://monmarchegn.com/application-mobile-guinee): Android et iPhone, gratuite
+- [Vendre en ligne en Guinée](https://monmarchegn.com/vendre-en-ligne-guinee): ouvrir une boutique sur la marketplace
 
 ## Livraison
 

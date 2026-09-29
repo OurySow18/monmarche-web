@@ -2,6 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { COMMUNES, getCommune } from "@/lib/conakry";
 import { CATEGORIES } from "@/lib/catalog";
+import { GUIDES } from "@/lib/guides";
 import { SITE_URL } from "@/app/p/product-service";
 
 export const dynamicParams = false;
@@ -34,6 +35,10 @@ export default function CommunePage({ params }) {
     {
       q: `Comment commander en ligne à ${commune.name} ?`,
       a: "Téléchargez l'application Monmarché, ajoutez vos produits au panier, indiquez votre adresse et votre quartier, puis payez en ligne ou à la livraison.",
+    },
+    {
+      q: `Comment payer en ligne à ${commune.name} ?`,
+      a: "Vous pouvez payer par Orange Money, par virement bancaire ou à la livraison, en espèces ou par paiement mobile.",
     },
     {
       q: "Combien coûte la livraison ?",
@@ -118,6 +123,29 @@ export default function CommunePage({ params }) {
               className="rounded-full border border-orange-200 px-4 py-1.5 text-sm hover:bg-orange-50"
             >
               {category.name}
+            </Link>
+          ))}
+        </div>
+      </section>
+
+      <section className="space-y-3">
+        <h2 className="text-2xl font-semibold text-gray-900">
+          Acheter, payer et vendre en ligne à {commune.name}
+        </h2>
+        <p className="text-gray-700">
+          Que vous habitiez à {commune.quartiers.slice(0, 3).join(", ")} ou ailleurs à{" "}
+          {commune.name}, l&apos;application Monmarché vous permet d&apos;acheter en ligne,
+          de payer par Orange Money ou à la livraison, et même de vendre vos propres
+          produits si vous êtes commerçant.
+        </p>
+        <div className="flex flex-wrap gap-2">
+          {GUIDES.map((guide) => (
+            <Link
+              key={guide.slug}
+              href={`/${guide.slug}`}
+              className="rounded-full border border-orange-200 px-4 py-1.5 text-sm hover:bg-orange-50"
+            >
+              {guide.nav}
             </Link>
           ))}
         </div>
