@@ -3,7 +3,7 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { AppCTA, CategoryIcon, PageHero, TrustBar } from "@/app/_components/Marketing";
 import StoreButtons from "@/app/_components/StoreButtons";
-import { CATEGORIES, listPublicProducts, pickFeatured } from "@/lib/catalog";
+import { CATEGORIES, listPublicProducts, pickFeatured, pickPreviews } from "@/lib/catalog";
 import { SITE_URL } from "@/app/p/product-service";
 
 export const revalidate = 3600;
@@ -37,7 +37,7 @@ export default async function CategoriesPage() {
       <ul className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
         {CATEGORIES.map((category) => {
           const items = byCategory[category.slug] || [];
-          const previews = pickFeatured(items, 3);
+          const previews = pickPreviews(items, category, 3);
           return (
             <li key={category.slug}>
               <Link
