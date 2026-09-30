@@ -29,7 +29,7 @@ const localBusinessJsonLd = {
   url: SITE_URL,
   image: `${SITE_URL}/images/og-monmarche.png`,
   email: "infos@monmarchegn.com",
-  telephone: "+224 121229",
+  telephone: "+224 612121229",
   address: {
     "@type": "PostalAddress",
     streetAddress: "Cosa",

@@ -12,7 +12,7 @@ export default function Footer() {
         <div>
           <h3 className="font-semibold text-gray-900 mb-3">Contact</h3>
           <p className="flex items-center gap-2"><Mail size={16} /> <a href="mailto:infos@monmarchegn.com" className="text-primary">infos@monmarchegn.com</a></p>
-          <p className="flex items-center gap-2"><Phone size={16} /> +224 121229</p>
+          <p className="flex items-center gap-2"><Phone size={16} /> +224 612121229</p>
           <p className="flex items-center gap-2"><MapPin size={16} /> Cosa, Conakry</p>
           <p className="flex items-center gap-2"><Clock size={16} /> 09h - 17h</p>
         </div>
