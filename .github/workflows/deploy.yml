@@ -1,0 +1,61 @@
+name: Déploiement Firebase
+
+# Publie le site à chaque mise à jour de main (par exemple quand un article
+# proposé par l'agent SEO est validé).
+on:
+  push:
+    branches: [main]
+    paths-ignore:
+      - "rapports/**"
+      - "docs/**"
+      - "**.md"
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-production
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    env:
+      FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
+    steps:
+      - name: Vérifier le secret de déploiement
+        id: secret
+        run: |
+          if [ -z "$FIREBASE_SERVICE_ACCOUNT" ]; then
+            echo "Secret FIREBASE_SERVICE_ACCOUNT absent : déploiement ignoré."
+            echo "present=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "present=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - uses: actions/checkout@v4
+        if: steps.secret.outputs.present == 'true'
+
+      - uses: actions/setup-node@v4
+        if: steps.secret.outputs.present == 'true'
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Installer les dépendances
+        if: steps.secret.outputs.present == 'true'
+        run: |
+          npm ci
+          npm install --prefix functions
+
+      - name: Construire le site
+        if: steps.secret.outputs.present == 'true'
+        run: npm run build
+
+      - name: Déployer sur Firebase
+        if: steps.secret.outputs.present == 'true'
+        run: |
+          echo "$FIREBASE_SERVICE_ACCOUNT" > "$RUNNER_TEMP/firebase-key.json"
+          export GOOGLE_APPLICATION_CREDENTIALS="$RUNNER_TEMP/firebase-key.json"
+          # Seule la fonction du site est déployée : les autres fonctions du projet
+          # Firebase viennent d'un autre dépôt et ne doivent pas être supprimées.
+          npx firebase-tools deploy --only "hosting,functions:nextServer" --project monmarhe --non-interactive
+          rm -f "$RUNNER_TEMP/firebase-key.json"

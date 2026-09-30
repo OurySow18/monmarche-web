@@ -3,6 +3,7 @@ import "./globals.css";
 import Header from "@/app/_components/Header";
 import Footer from "@/app/_components/Footer";
 import MobileAppBar from "@/app/_components/MobileAppBar";
+import Analytics from "@/app/_components/Analytics";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -93,6 +94,7 @@ export default function RootLayout({ children }) {
         </main>
         <Footer />
         <MobileAppBar />
+        <Analytics />
       </body>
     </html>
   );
