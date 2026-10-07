@@ -1,5 +1,6 @@
 import { getApps, initializeApp, cert } from "firebase-admin/app";
 import { getFirestore } from "firebase-admin/firestore";
+import { cache } from "react";
 
 export const SITE_URL =
   process.env.NEXT_PUBLIC_SITE_URL || "https://monmarchegn.com";
@@ -18,10 +19,15 @@ export const FB_PROJECT_ID = process.env.NEXT_PUBLIC_FB_PROJECT_ID || "monmarhe"
 export const FB_API_KEY =
   process.env.NEXT_PUBLIC_FB_API_KEY || "AIzaSyDCENsh0tZlNtbcNAZZHqt1RtkNIsWsNuE";
 
+// Durée de cache des lectures Firestore. Sans cache, chaque passage d'un robot
+// d'indexation relisait Firestore (pic de 2 millions de lectures le 1er octobre 2026).
+export const CACHE_SECONDS = 3600;
+
 /**
  * Récupère un produit depuis Firestore (si credentials fournis), sinon via API, sinon mock local.
+ * cache() : generateMetadata et la page partagent la même lecture.
  */
-export async function getProduct(identifier) {
+export const getProduct = cache(async function getProduct(identifier) {
   if (!identifier) return null;
 
   // 1) Recherche par slug (nouvel usage)
@@ -41,7 +47,7 @@ export async function getProduct(identifier) {
   if (fromApi) return fromApi;
 
   return null;
-}
+});
 
 async function getProductBySlug(slug) {
   if (!slug) return null;
@@ -117,7 +123,7 @@ async function getProductFromFirestoreRest(productId) {
 
   const url = `https://firestore.googleapis.com/v1/projects/${projectId}/databases/(default)/documents/${FIRESTORE_COLLECTION}/${productId}?key=${apiKey}`;
   try {
-    const res = await fetch(url, { cache: "no-store" });
+    const res = await fetch(url, { next: { revalidate: CACHE_SECONDS } });
     if (!res.ok) return null;
     const doc = await res.json();
     if (!doc || !doc.fields) return null;
@@ -157,7 +163,7 @@ async function getProductFromFirestoreRestBySlug(slug) {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(body),
-      cache: "no-store",
+      next: { revalidate: CACHE_SECONDS },
     });
     console.log("[product] REST slug response", {
       slug,
@@ -185,7 +191,7 @@ async function getProductFromApi(productId) {
   if (!baseUrl) return null;
   try {
     const res = await fetch(`${baseUrl}/products/${productId}`, {
-      cache: "no-store",
+      next: { revalidate: CACHE_SECONDS },
     });
     if (res.ok) {
       const data = await res.json();
@@ -287,6 +293,20 @@ export function normalizeProduct(raw) {
     price,
     currency,
     url: raw.url || `${SITE_URL}/p/${urlSlug}`,
+    // Champs bruts de classement et de publication, pour que la fiche produit
+    // n'ait pas à relire tout le catalogue (voir lib/catalog.js).
+    listing: {
+      topCategory: raw.topCategory || "",
+      category: raw.category || "",
+      categoryId: raw.categoryId || "",
+      status: raw.status,
+      mm_status: raw.mm_status,
+      vm_status: raw.vm_status,
+      vendorName: raw.vendorName || "",
+      vendorId: raw.vendorId || "",
+      brand: typeof raw.brand === "string" ? raw.brand : raw.brand?.name || "",
+      updatedAt: raw.updatedAt || raw.updateTime || "",
+    },
   };
 }
 

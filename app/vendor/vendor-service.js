@@ -1,4 +1,5 @@
 import {
+  CACHE_SECONDS,
   FALLBACK_IMAGE,
   FB_API_KEY,
   FB_PROJECT_ID,
@@ -165,7 +166,7 @@ async function getVendorRawFromFirestoreRestById(vendorId) {
   const directUrl = `https://firestore.googleapis.com/v1/projects/${projectId}/databases/(default)/documents/${FIRESTORE_VENDORS_COLLECTION}/${vendorId}?key=${apiKey}`;
 
   try {
-    const directRes = await fetch(directUrl, { cache: "no-store" });
+    const directRes = await fetch(directUrl, { next: { revalidate: CACHE_SECONDS } });
     if (directRes.ok) {
       const doc = await directRes.json();
       if (doc?.fields) {
@@ -200,7 +201,7 @@ async function getVendorRawFromFirestoreRestById(vendorId) {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(body),
-      cache: "no-store",
+      next: { revalidate: CACHE_SECONDS },
     });
     if (!res.ok) {
       return { raw: null, errorCode: "vendor_fetch_failed" };
@@ -244,7 +245,7 @@ async function getVendorRawFromFirestoreRestBySlug(slug) {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(body),
-      cache: "no-store",
+      next: { revalidate: CACHE_SECONDS },
     });
     if (!res.ok) {
       return { raw: null, errorCode: "vendor_fetch_failed" };

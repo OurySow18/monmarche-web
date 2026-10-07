@@ -74,6 +74,7 @@ export default function Hero({ products = [], productCount = 0 }) {
               <Link
                 key={product.url}
                 href={`/p/${product.slug || product.id}`}
+                prefetch={false}
                 className={`group relative aspect-square overflow-hidden rounded-3xl bg-white shadow-lg ring-1 ring-orange-100 ${
                   index % 2 === 1 ? "translate-y-6" : ""
                 }`}

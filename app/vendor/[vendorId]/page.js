@@ -4,6 +4,13 @@ import {
   getVendorResult,
 } from "../vendor-service";
 
+// Comme les fiches produit : générée à la première visite, puis en cache une heure.
+export const revalidate = 3600;
+
+export function generateStaticParams() {
+  return [];
+}
+
 export async function generateMetadata({ params }) {
   const { vendorId } = params || {};
   const result = await getVendorResult(vendorId);

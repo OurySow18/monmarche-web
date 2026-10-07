@@ -7,8 +7,11 @@ export default function ProductGrid({ products }) {
     <ul className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-5">
       {products.map((product) => (
         <li key={product.url}>
+          {/* prefetch désactivé : une grille de 100+ produits déclencherait
+              autant de générations de fiches (et de lectures Firestore). */}
           <Link
             href={`/p/${product.slug || product.id}`}
+            prefetch={false}
             className="group flex h-full flex-col overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-sm transition-all hover:-translate-y-1 hover:shadow-lg"
           >
             <div className="relative aspect-square overflow-hidden bg-orange-50">

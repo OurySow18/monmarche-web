@@ -1,21 +1,16 @@
 import { notFound } from "next/navigation";
 import ProductView from "../product-view";
 import { getProduct, buildProductMetadata } from "../product-service";
-import { formatPrice, getCategory, listPublicProducts } from "@/lib/catalog";
+import { formatPrice, getProductContext } from "@/lib/catalog";
 
-// Retrouve le produit dans le catalogue publié : donne sa catégorie, son
-// vendeur et des produits similaires. Absent = brouillon ou masqué.
-async function getCatalogContext(product) {
-  const products = await listPublicProducts();
-  const listed = products.find(
-    (item) => item.id === product.id || item.url === product.url
-  );
-  if (!listed) return { listed: null, category: null, related: [] };
+// Page générée à la première visite puis gardée en cache une heure (serveur et
+// CDN Firebase) : un robot qui parcourt les fiches ne relit plus Firestore à
+// chaque passage. La valeur doit être littérale pour Next.js (= CACHE_SECONDS
+// dans product-service.js).
+export const revalidate = 3600;
 
-  const related = products
-    .filter((item) => item.categorySlug === listed.categorySlug && item.url !== listed.url)
-    .slice(0, 8);
-  return { listed, category: getCategory(listed.categorySlug), related };
+export function generateStaticParams() {
+  return [];
 }
 
 export async function generateMetadata({ params }) {
@@ -24,15 +19,17 @@ export async function generateMetadata({ params }) {
   if (!product) {
     return buildProductMetadata(null, id, { notFound: true });
   }
-  const { listed } = await getCatalogContext(product);
+  const { listed } = await getProductContext(product);
   const metadata = buildProductMetadata(product, id);
   const price = formatPrice(product.price, product.currency);
+  const vendorName = product.listing?.vendorName;
   metadata.title = `${product.title}${price ? ` – ${price}` : ""} | Acheter à Conakry`;
   if (!product.description) {
     metadata.description = `Achetez ${product.title}${price ? ` à ${price}` : ""} sur Monmarché${
-      listed?.vendorName ? ` chez ${listed.vendorName}` : ""
+      vendorName ? ` chez ${vendorName}` : ""
     }. Livraison à domicile partout à Conakry.`;
   }
+  // Brouillon ou produit masqué : accessible par lien, mais pas indexé.
   if (!listed) {
     metadata.robots = { index: false, follow: true };
   }
@@ -45,11 +42,12 @@ export default async function ProductPage({ params }) {
   if (!product) {
     notFound();
   }
-  const { listed, category, related } = await getCatalogContext(product);
+  const { listed, category, related } = await getProductContext(product);
+  const { vendorName, vendorId, brand } = product.listing || {};
   return (
     <ProductView
-      product={{ ...listed, ...product, vendorName: listed?.vendorName, vendorId: listed?.vendorId, brand: listed?.brand }}
-      category={category}
+      product={{ ...product, vendorName, vendorId, brand }}
+      category={listed ? category : null}
       related={related}
     />
   );
