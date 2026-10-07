@@ -1,14 +1,10 @@
 name: Déploiement Firebase
 
-# Publie le site à chaque mise à jour de main (par exemple quand un article
-# proposé par l'agent SEO est validé).
+# Lancement manuel uniquement (onglet Actions → Run workflow). Le déploiement
+# se fait d'habitude depuis le poste de travail avec `npm run deploy`. Le
+# déclenchement à chaque push sur main est coupé : il échouait faute du rôle
+# « Utilisateur du compte de service » sur monmarhe@appspot.gserviceaccount.com.
 on:
-  push:
-    branches: [main]
-    paths-ignore:
-      - "rapports/**"
-      - "docs/**"
-      - "**.md"
   workflow_dispatch:
 
 concurrency:
