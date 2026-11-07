@@ -1,6 +1,5 @@
-import OrangeMoneyReturnContent, {
-  normalizeOrangeMoneyStatus,
-} from "../payement/PaymentReturn/payment-return-content";
+import OrangeMoneyReturnContent from "../payement/PaymentReturn/payment-return-content";
+import { normalizeOrangeMoneyStatus } from "../payement/PaymentReturn/payment-return-status";
 
 export const metadata = {
   robots: { index: false, follow: false },

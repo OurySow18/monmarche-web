@@ -1,7 +1,8 @@
-import OrangeMoneyReturnContent, {
+import OrangeMoneyReturnContent from "./payment-return-content";
+import {
   buildOrangeMoneyReturnMetadata,
   normalizeOrangeMoneyStatus,
-} from "./payment-return-content";
+} from "./payment-return-status";
 
 export function generateMetadata({ searchParams }) {
   const status = normalizeOrangeMoneyStatus(searchParams?.status || "return");
