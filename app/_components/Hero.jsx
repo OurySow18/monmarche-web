@@ -1,9 +1,5 @@
-"use client";
-
-import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { motion } from "framer-motion";
 import { MapPin } from "lucide-react";
 import StoreButtons from "./StoreButtons";
 
@@ -18,41 +14,21 @@ export default function Hero({ products = [], productCount = 0 }) {
       />
       <div className="relative mx-auto grid max-w-6xl items-center gap-12 lg:grid-cols-2">
         <div className="space-y-6 text-center lg:text-left">
-          <motion.p
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4 }}
-            className="inline-flex items-center gap-2 rounded-full bg-white px-4 py-1.5 text-xs font-semibold text-primary shadow-sm ring-1 ring-orange-100"
-          >
+          <p className="fade-up inline-flex items-center gap-2 rounded-full bg-white px-4 py-1.5 text-xs font-semibold text-primary shadow-sm ring-1 ring-orange-100">
             <MapPin className="h-4 w-4" aria-hidden="true" />
             Marketplace guinéenne · Livraison à Conakry
-          </motion.p>
-          <motion.h1
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-[1.1] text-gray-900"
-          >
+          </p>
+          <h1 className="fade-up text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-[1.1] text-gray-900">
             Achetez en ligne en Guinée,{" "}
             <span className="text-primary">livré chez vous à Conakry</span>
-          </motion.h1>
-          <motion.p
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-            className="mx-auto max-w-xl text-base sm:text-lg text-gray-700 lg:mx-0"
-          >
+          </h1>
+          <p className="fade-up fade-up-delay-1 mx-auto max-w-xl text-base sm:text-lg text-gray-700 lg:mx-0">
             Épicerie, mode, beauté, maison, bébé et électronique :{" "}
             {productCount > 0 ? `plus de ${Math.floor(productCount / 50) * 50} produits` : "des centaines de produits"}{" "}
             de vendeurs guinéens dans une seule application. Payez par Orange Money ou à
             la livraison.
-          </motion.p>
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-            className="space-y-3"
-          >
+          </p>
+          <div className="fade-up fade-up-delay-2 space-y-3">
             <StoreButtons className="justify-center lg:justify-start" />
             <p className="text-sm text-gray-500">
               Gratuit ·{" "}
@@ -60,16 +36,11 @@ export default function Hero({ products = [], productCount = 0 }) {
                 Parcourir les produits
               </Link>
             </p>
-          </motion.div>
+          </div>
         </div>
 
         {mosaic.length === 4 ? (
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="grid grid-cols-2 gap-4"
-          >
+          <div className="fade-up fade-up-delay-2 grid grid-cols-2 gap-4">
             {mosaic.map((product, index) => (
               <Link
                 key={product.url}
@@ -92,7 +63,7 @@ export default function Hero({ products = [], productCount = 0 }) {
                 </span>
               </Link>
             ))}
-          </motion.div>
+          </div>
         ) : null}
       </div>
     </section>
