@@ -163,8 +163,8 @@ export default function OrangeMoneyReturnContent({ status = "return" }) {
                 </p>
                 <p className="text-lg font-semibold text-gray-900">
                   {isOpening
-                    ? "Ouverture de l&apos;application Monmarche..."
-                    : "Si l&apos;application ne s&apos;ouvre pas, utilisez le bouton ci-contre."}
+                    ? "Ouverture de l’application Monmarché…"
+                    : "Si l’application ne s’ouvre pas, utilisez le bouton ci-contre."}
                 </p>
                 <p className="text-sm text-gray-600">
                   {isCancel

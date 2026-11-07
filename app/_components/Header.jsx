@@ -1,26 +1,37 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { Menu, X } from "lucide-react";
 import logo from '../../public/logo.png'
 
+const MOBILE_LINKS = [
+  { href: "/categorie", label: "Catégories" },
+  { href: "/livraison-conakry", label: "Livraison" },
+  { href: "/a-propos", label: "À propos" },
+  { href: "/vendre-en-ligne-guinee", label: "Vendre" },
+  { href: "/blog", label: "Blog" },
+  { href: "/conditions", label: "Conditions" },
+  { href: "/confidentialite", label: "Confidentialité" },
+];
+
 export default function Header() {
-  const [isOpen, setIsOpen] = useState(false);
+  // Menu mobile en <details> : il s'ouvre et se ferme sans JavaScript (utile sur
+  // une connexion instable). Le JavaScript ne fait que le refermer après un clic
+  // ou avec Échap, car l'en-tête reste affiché d'une page à l'autre.
+  const menuRef = useRef(null);
+  const closeMenu = () => {
+    if (menuRef.current) menuRef.current.open = false;
+  };
 
   useEffect(() => {
-    if (!isOpen) return;
     const onKeyDown = (event) => {
-      if (event.key === "Escape") {
-        setIsOpen(false);
-      }
+      if (event.key === "Escape") closeMenu();
     };
     document.addEventListener("keydown", onKeyDown);
     return () => document.removeEventListener("keydown", onKeyDown);
-  }, [isOpen]);
-
-  const handleLinkClick = () => setIsOpen(false);
+  }, []);
 
   return (
     <header className="bg-white shadow-md sticky top-0 z-50">
@@ -47,27 +58,31 @@ export default function Header() {
           Télécharger l&apos;app
         </Link>
 
-        {/* Mobile Menu Toggle */}
-        <button
-          onClick={() => setIsOpen(!isOpen)}
-          className="md:hidden text-primary"
-          aria-label="Toggle menu"
-        >
-          {isOpen ? <X size={28} /> : <Menu size={28} />}
-        </button>
+        {/* Mobile Nav */}
+        <details ref={menuRef} className="group md:hidden">
+          <summary
+            className="list-none cursor-pointer text-primary [&::-webkit-details-marker]:hidden"
+            aria-label="Menu"
+          >
+            <Menu size={28} className="group-open:hidden" aria-hidden="true" />
+            <X size={28} className="hidden group-open:block" aria-hidden="true" />
+          </summary>
+          <nav className="absolute inset-x-0 top-full bg-white border-t shadow-md px-4 py-4 space-y-3 text-sm">
+            {MOBILE_LINKS.map(({ href, label }) => (
+              <Link key={href} href={href} onClick={closeMenu} className="block hover:text-primary">
+                {label}
+              </Link>
+            ))}
+            <Link
+              href="/application-mobile-guinee"
+              onClick={closeMenu}
+              className="block rounded-full bg-primary px-4 py-2 text-center font-semibold text-white"
+            >
+              Télécharger l&apos;app
+            </Link>
+          </nav>
+        </details>
       </div>
-
-      {/* Mobile Nav Panel */}
-      {isOpen && (
-        <nav className="md:hidden bg-white border-t px-4 py-4 space-y-3 text-sm">
-          <Link href="/categorie" onClick={handleLinkClick} className="block hover:text-primary">Catégories</Link>
-          <Link href="/livraison-conakry" onClick={handleLinkClick} className="block hover:text-primary">Livraison</Link>
-          <Link href="/a-propos" onClick={handleLinkClick} className="block hover:text-primary">À propos</Link>
-          <Link href="/blog" onClick={handleLinkClick} className="block hover:text-primary">Blog</Link>
-          <Link href="/conditions" onClick={handleLinkClick} className="block hover:text-primary">Conditions</Link>
-          <Link href="/confidentialite" onClick={handleLinkClick} className="block hover:text-primary">Confidentialité</Link>
-        </nav>
-      )}
     </header>
   );
 }
