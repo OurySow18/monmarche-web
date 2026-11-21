@@ -1,3 +1,14 @@
+> ## ⚠️ Dépôt remplacé par le monorepo monmarche-shared
+>
+> Depuis le 21/11/2026, **tout le code du site public est dans `monmarche-shared/apps/web`**, avec l'historique Git de ce dépôt. Le site (`monmarchegn.com`, site Firebase `monmarche`) et sa fonction `nextServer` (codebase `web`) sont compilés et publiés uniquement depuis le monorepo :
+>
+> ```powershell
+> cd monmarche-shared
+> firebase deploy --only functions:web,hosting:web
+> ```
+>
+> Ne plus modifier ni déployer ce dépôt. `firebase.json`, `.firebaserc` et le workflow de déploiement en ont été retirés. Voir `monmarche-shared/docs/migration-monorepo.md`.
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
